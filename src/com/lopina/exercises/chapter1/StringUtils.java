@@ -1,4 +1,4 @@
-package com.lopina.exercises.chapter1.question1;
+package com.lopina.exercises.chapter1;
 
 import java.util.HashMap;
 import java.util.Map;
