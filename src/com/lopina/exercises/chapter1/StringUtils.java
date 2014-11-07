@@ -2,6 +2,7 @@ package com.lopina.exercises.chapter1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class StringUtils {
 	/**
@@ -17,13 +18,8 @@ public class StringUtils {
 	 * @throws IllegalArgumentException if the passed string is empty
 	 */
 	public static boolean allUniqueCharacters(String s) {
-		if (s == null) {
-			throw new NullPointerException("The provided string was null");
-		}
-		
-		if (s.isEmpty()) {
-			throw new IllegalArgumentException("The provided string was empty");
-		}
+		checkForNullString(s, "The provided string was null");
+		checkForEmptyString(s, "The provided string was empty");
 		
 		Map<Character, Boolean> seenCharacterMap = new HashMap<Character, Boolean>();
 		
@@ -53,13 +49,9 @@ public class StringUtils {
 	 * @throws IllegalArgumentException if the passed string is empty
 	 */
 	public static boolean allUniqueCharactersSimpleBackingArray(String s) {
-		if (s == null) {
-			throw new NullPointerException("The provided string was null");
-		}
-		
-		if (s.isEmpty()) {
-			throw new IllegalArgumentException("The provided string was empty");
-		}
+		checkForNullString(s, "The provided string was null");
+		checkForEmptyString(s, "The provided string was empty");
+
 		
 		boolean[] seenArray = new boolean[Character.MAX_VALUE];
 		
@@ -89,13 +81,9 @@ public class StringUtils {
 	 * @throws IllegalArgumentException if the passed string is empty
 	 */
 	public static boolean allUniqueCharactersConstantSpace(String s) {
-		if (s == null) {
-			throw new NullPointerException("The provided string was null");
-		}
-		
-		if (s.isEmpty()) {
-			throw new IllegalArgumentException("The provided string was empty");
-		}
+		checkForNullString(s, "The provided string was null");
+		checkForEmptyString(s, "The provided string was empty");
+
 		
 		char[] stringAsCharArray = s.toCharArray();
 		
@@ -112,5 +100,71 @@ public class StringUtils {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Checks if the two provided strings are permutations of each other.
+	 * Time complexity is 0(n)
+	 * Space comlexity is at most O(n)
+	 * 
+	 * @param a the first string
+	 * @param b the second string
+	 * @return <code>true</code> if the provided strings are permutations of each other, <code>false</code> otherwise
+	 * @throws NullPointerException if either of the provided strings is a null string
+	 */
+	public static boolean arePermutations(String a, String b) {
+		checkForNullString(a, "String a should not be null");
+		checkForNullString(b, "String b should not be null");
+		
+		if (a.length() != b.length()) {
+			return false;
+		}
+		
+		Map<Character, Integer> usedCharacterMap = new HashMap<Character, Integer>();
+		int length = a.length();
+		
+		for (int i = 0; i < length; i++) {
+			char ca = a.charAt(i);
+			char cb = b.charAt(i);
+			
+			incrementCharacterCount(ca, usedCharacterMap);
+			decrementCharacterCount(cb, usedCharacterMap);
+		}
+		
+		for (Entry<Character, Integer> e : usedCharacterMap.entrySet()) {
+			if (e.getValue() != 0) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private static void incrementCharacterCount(char ca,
+			Map<Character, Integer> usedCharacterMap) {
+		changeCharacterCount(ca, usedCharacterMap, 1);
+	}
+
+	private static void decrementCharacterCount(char cb,
+			Map<Character, Integer> usedCharacterMap) {
+		changeCharacterCount(cb, usedCharacterMap, -1);
+	}
+
+	private static void changeCharacterCount(char c,
+			Map<Character, Integer> usedCharacterMap, int step) {
+		int usedTimes = usedCharacterMap.getOrDefault(c, 0);
+		usedCharacterMap.put(c, usedTimes + step);
+	}
+
+	private static void checkForNullString(String s, String message) {
+		if (s == null) {
+			throw new NullPointerException(message);
+		}
+	}
+	
+	private static void checkForEmptyString(String s, String message) {
+		if (s == null) {
+			throw new IllegalArgumentException(message);
+		}
 	}
 }
