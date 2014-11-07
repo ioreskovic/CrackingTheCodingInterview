@@ -187,7 +187,38 @@ public class StringUtils {
 		}
 	}
 	
-
+	public static String compressRepeatedCounts(String s) {
+		checkForNullString(s, "The provided string was null");
+		
+		if (s.isEmpty()) {
+			return new String(s);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		char[] array = s.toCharArray();
+		
+		int seenCount = 1;
+		char lastChar = array[0];
+		int i = 1;
+		
+		while (i < array.length) {
+			if (array[i] == lastChar) {
+				seenCount++;
+			} else {
+				sb.append(lastChar).append(seenCount);
+				lastChar = array[i];
+				seenCount = 1;
+			}
+			
+			i++;
+		}
+		
+		sb.append(lastChar).append(seenCount);
+		
+		return sb.toString();
+	}
+	
 	private static int getTrailingEmptySpaces(char[] s) {
 		int trailingEmptySpaces = 0;
 		int i = s.length - 1;
@@ -260,4 +291,5 @@ public class StringUtils {
 			throw new IllegalArgumentException(message);
 		}
 	}
+	
 }
