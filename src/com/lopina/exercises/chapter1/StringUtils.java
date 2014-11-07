@@ -140,6 +140,95 @@ public class StringUtils {
 		return true;
 	}
 	
+	public static void replaceSpaces(char[] s) {
+		checkForNullString(s, "The provided string was null");
+		
+		if (s.length == 0) {
+			return;
+		}
+		
+		rotateCharsLeftForEmptySpaces(s);
+		
+		for (int i = 0; i < s.length; i++) {
+			char c = s[i];
+			
+			if (c == ' ') {
+				rotateCharsRightFrom(i + 1, 2, s);
+				putEncodedSpace(i, s);
+				i += 2;
+			}
+		}
+	}
+	
+	public static void replaceSpacesFast(char[] s) {
+		checkForNullString(s, "The provided string was null");
+		
+		if (s.length == 0) {
+			return;
+		}
+		
+		rotateCharsLeftForEmptySpaces(s);
+		
+		int trailingEmptySpaces = getTrailingEmptySpaces(s);
+		
+		int extendedLength = s.length;
+		int originalLength = s.length - trailingEmptySpaces;
+		
+		for (int i = originalLength - 1, j = extendedLength - 1; i >= 0; i--) {
+			if (s[i] == ' ') {
+				s[j - 2] = '%';
+				s[j - 1] = '2';
+				s[j] = '0';
+				j -= 3;
+			} else {
+				s[j] = s[i];
+				j--;
+			}
+		}
+	}
+	
+
+	private static int getTrailingEmptySpaces(char[] s) {
+		int trailingEmptySpaces = 0;
+		int i = s.length - 1;
+		
+		while (s[i] == ' ' && i >= 0) {
+			trailingEmptySpaces++;
+			i--;
+		}
+		
+		return trailingEmptySpaces;
+	}
+
+	private static void rotateCharsLeftForEmptySpaces(char[] s) {
+		int leadingEmptySpaces = 0;
+		
+		while (s[leadingEmptySpaces] == ' ') {
+			leadingEmptySpaces++;
+		}
+		
+		rotateCharsLeftFrom(leadingEmptySpaces, leadingEmptySpaces, s);
+	}
+
+	private static void putEncodedSpace(int i, char[] s) {
+		s[i] = '%';
+		s[i + 1] = '2';
+		s[i + 2] = '0';
+	}
+
+	private static void rotateCharsLeftFrom(int start,
+			int step, char[] array) {
+		for (int i = 0; i < array.length - step; i++) {
+			array[i] = array[i + step];
+		}
+	}
+	
+	private static void rotateCharsRightFrom(int start, int step, char[] array) {
+		for (int i = array.length - 1; i >= start; i --) {
+			array[i] = array[i - step];
+		}
+	}
+
 	private static void incrementCharacterCount(char ca,
 			Map<Character, Integer> usedCharacterMap) {
 		changeCharacterCount(ca, usedCharacterMap, 1);
@@ -156,6 +245,10 @@ public class StringUtils {
 		usedCharacterMap.put(c, usedTimes + step);
 	}
 
+	private static void checkForNullString(char[] s, String message) {
+		checkForNullString(new String(s), message);
+	}
+	
 	private static void checkForNullString(String s, String message) {
 		if (s == null) {
 			throw new NullPointerException(message);
