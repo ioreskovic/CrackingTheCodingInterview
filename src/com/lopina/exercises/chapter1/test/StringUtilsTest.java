@@ -1,10 +1,10 @@
-package com.lopina.exercises.chapter1.question1.test;
+package com.lopina.exercises.chapter1.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.lopina.exercises.chapter1.question1.StringUtils;
+import com.lopina.exercises.chapter1.StringUtils;
 
 public class StringUtilsTest {
 
