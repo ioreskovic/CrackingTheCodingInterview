@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.lopina.exercises.chapter1.MatrixUtils;
+
 public class MatrixUtilsTestQuestion6 {
 
 	@Test
