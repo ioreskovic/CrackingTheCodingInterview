@@ -287,7 +287,7 @@ public class StringUtils {
 	}
 	
 	private static void checkForEmptyString(String s, String message) {
-		if (s == null) {
+		if (s.isEmpty()) {
 			throw new IllegalArgumentException(message);
 		}
 	}
