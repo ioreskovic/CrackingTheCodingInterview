@@ -140,6 +140,13 @@ public class StringUtils {
 		return true;
 	}
 	
+	/**
+	 * Replaces spaces in given string (as char array) with "%20" char sequence.
+	 * The provided string should have enough length to accommodate the changes.
+	 * Time complexity is O(n<sup>2</sup>)
+	 * Space complexity is O(1)
+	 * @param s the string to replace spaces in
+	 */
 	public static void replaceSpaces(char[] s) {
 		checkForNullString(s, "The provided string was null");
 		
@@ -160,6 +167,13 @@ public class StringUtils {
 		}
 	}
 	
+	/**
+	 * Replaces spaces in given string (as char array) with "%20" char sequence.
+	 * The provided string should have enough length to accommodate the changes.
+	 * Time complexity is O(n)
+	 * Space complexity is O(1)
+	 * @param s the string to replace spaces in
+	 */
 	public static void replaceSpacesFast(char[] s) {
 		checkForNullString(s, "The provided string was null");
 		
@@ -187,6 +201,13 @@ public class StringUtils {
 		}
 	}
 	
+	/**
+	 * Compresses provided string in the following format:
+	 * c<sub>1</sub>n<sub>1</sub>c<sub>2</sub>n<sub>2</sub>...c<sub>k</sub>n<sub>k</sub>
+	 * where c<sub>i</sub> represents a character and n<sub>i</sub> represents a number of repeating occurrences of that character.
+	 * @param s the string to compress
+	 * @return the compressed string
+	 */
 	public static String compressRepeatedCounts(String s) {
 		checkForNullString(s, "The provided string was null");
 		
