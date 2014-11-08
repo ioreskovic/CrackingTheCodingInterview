@@ -8,7 +8,7 @@ import com.lopina.exercises.chapter1.StringUtils;
 
 public class StringUtilsTestQuestion4 {
 
-	@Test(expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)	
 	public void shouldThrowNullPointerExceptionOnNullString() {
 		StringUtils.replaceSpaces(null);
 	}
