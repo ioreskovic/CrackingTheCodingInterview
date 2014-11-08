@@ -1,4 +1,4 @@
-package com.lopina.exercises.chapter1.test;
+package com.lopina.exercises.chapter1;
 
 
 
