@@ -174,6 +174,35 @@ public class LinkedListUtils {
 		return;
 	}
 	
+	/**
+	 * Partitions the list around the provided pivot value in a way that every element </br>
+	 * less than pivot is before any element greater than or equal pivot.
+	 * @param list the provided list
+	 * @param pivotValue the pivot value
+	 */
+	public static <T extends Comparable<T>> void partitionAround(MyLinkedList<T> list, T pivotValue) {
+		MyNode<T> pivotNode = new MyNode<T>(pivotValue);
+		MyNode<T> last = null;
+		MyNode<T> curr = null;
+		
+		pivotNode.next = list.getHead();
+		
+		for (last = curr = pivotNode; curr != null; curr = curr.next) {
+			if (curr.data.compareTo(pivotNode.data) < 0) {
+				last = last.next;
+				swapValues(last, curr);
+			}
+		}
+		
+		list.setHead(pivotNode.next);
+	}
+	
+	private static <T> void swapValues(MyNode<T> aNode, MyNode<T> bNode) {
+		T temp = aNode.data;
+		aNode.data = bNode.data;
+		bNode.data = temp;
+	}
+	
 	private static <T> void checkForNullList(MyLinkedList<T> list, String message) {
 		if (list == null) {
 			throw new NullPointerException(message);
