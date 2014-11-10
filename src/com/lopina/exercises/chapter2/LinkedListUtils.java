@@ -3,6 +3,8 @@ package com.lopina.exercises.chapter2;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lopina.exercises.chapter2.MyLinkedList.MyNode;
+
 
 public class LinkedListUtils {
 	
@@ -115,9 +117,53 @@ public class LinkedListUtils {
 		return list;
 	}
 	
+	/**
+	 * Retrieves kth to the last element in the provided list
+	 * @param k the index of the element to retrieve, looking from the end of the list
+	 * @param list the provided list
+	 * @return kth to the last element in the provided list
+	 * @throws NullPointerException if the provided list is null
+	 * @throws IllegalArgumentException if the list's size is less than k
+	 */
+	public static <T> T getKthToTheEndElement(int k, MyLinkedList<T> list) {
+		checkForNullList(list, "The provided list was null");
+		checkForNegativeValue(k, "Index value k must not be less than zero. It was " + k);
+		
+		if (list.getHead() == null) {
+			return null;
+		}
+		
+		MyLinkedList<T>.MyNode runner = list.getHead();
+		MyLinkedList<T>.MyNode node = list.getHead();
+		
+		int i = 0;
+		
+		while (i < k && runner != null) {
+			runner = runner.next;
+			i++;
+		}
+		
+		if (runner == null) {
+			throw new IllegalArgumentException("The list was too short for index " + k);
+		}
+		
+		while (runner.next != null) {
+			runner = runner.next;
+			node = node.next;
+		}
+		
+		return node.data;
+	}
+	
 	private static <T> void checkForNullList(MyLinkedList<T> list, String message) {
 		if (list == null) {
 			throw new NullPointerException(message);
+		}
+	}
+	
+	private static void checkForNegativeValue(int k, String message) {
+		if (k < 0) {
+			throw new IllegalArgumentException(message);
 		}
 	}
 }
