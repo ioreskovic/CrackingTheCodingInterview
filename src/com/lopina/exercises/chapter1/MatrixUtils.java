@@ -4,10 +4,21 @@ package com.lopina.exercises.chapter1;
 
 public class MatrixUtils {
 	
+	/**
+	 * Creates a new {@link Integer} square matrix and fills it with values from <code>0</code> to <code>n * n</code>
+	 * @param n the dimension of the square matrix
+	 * @return new Integer square matrix
+	 */
 	public static Integer[][] createIntegerMatrix(int n) {
 		return createIntegerMatrix(n, n);
 	}
 	
+	/**
+	 * Creates a new {@link Integer} matrix and fills it with values from <code>0</code> to <code>m * n</code>
+	 * @param m number of rows
+	 * @param n number of columns
+	 * @return new Integer matrix with <code>m</code> rows and <code>n</code> columns
+	 */
 	public static Integer[][] createIntegerMatrix(int m, int n) {
 		Integer[][] matrix = new Integer[m][n];
 		
@@ -20,6 +31,11 @@ public class MatrixUtils {
 		return matrix;
 	}
 	
+	/**
+	 * Creates a string representation of the provided matrix.
+	 * @param matrix the matrix
+	 * @return a string representation of the provided matrix
+	 */
 	public static <T> String toString(T[][] matrix) {
 		StringBuilder sb = new StringBuilder();
 		
@@ -36,6 +52,15 @@ public class MatrixUtils {
 		return sb.toString();
 	}
 	
+	/**
+	 * Replaces elements in rows and columns where mark element has been found with fill element
+	 * Time complexity is O(m*n)
+	 * Space complexity is O(m + n)
+	 * @param matrix the provided matrix
+	 * @param markElement the element which rows' and columns' elements will be replaced
+	 * @param fillElement the replacing element
+	 * @throws NullPointerException if the matrix is a null matrix
+	 */
 	public static <T> void fillMarkedRowsAndColumns(T[][] matrix, T markElement, T fillElement) {
 		checkForNullMatrix(matrix, "The matrix was null");
 		
