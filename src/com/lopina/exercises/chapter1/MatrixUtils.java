@@ -5,9 +5,13 @@ package com.lopina.exercises.chapter1;
 public class MatrixUtils {
 	
 	public static Integer[][] createIntegerMatrix(int n) {
-		Integer[][] matrix = new Integer[n][n];
+		return createIntegerMatrix(n, n);
+	}
+	
+	public static Integer[][] createIntegerMatrix(int m, int n) {
+		Integer[][] matrix = new Integer[m][n];
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				matrix[i][j] = Integer.valueOf(i * n + j);
 			}
@@ -32,6 +36,49 @@ public class MatrixUtils {
 		return sb.toString();
 	}
 	
+	public static <T> void fillMarkedRowsAndColumns(T[][] matrix, T markElement, T fillElement) {
+		checkForNullMatrix(matrix, "The matrix was null");
+		
+		int rows = matrix.length;
+		int cols = matrix[0].length;
+		
+		boolean[] markedRows = new boolean[rows];
+		boolean[] markedCols = new boolean[cols];
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (matrix[i][j].equals(markElement)) {
+					markedRows[i] = true;
+					markedCols[j] = true;
+				}
+			}
+		}
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (isInMarkedRow(i, markedRows) || isInMarkedColumn(j, markedCols)) {
+					setMatrixElement(matrix, markElement, i, j);
+				}
+			}
+		}
+	}
+	
+	private static boolean isInMarkedRow(int i, boolean[] markedRows) {
+		return isMarked(i, markedRows);
+	}
+
+	private static boolean isInMarkedColumn(int j, boolean[] markedCols) {
+		return isMarked(j, markedCols);
+	}
+	
+	private static boolean isMarked(int i, boolean[] array) {
+		return array[i];
+	}
+	
+	private static <T> void setMatrixElement(T[][] matrix, T markElement, int row, int col) {
+		matrix[row][col] = markElement;
+	}
+
 	public static <T> void rotatePositive90Degrees(T[][] matrix) {
 		checkForNullMatrix(matrix, "The matrix was null.");
 		checkForNonSquareMatrix(matrix, "The matrix was not square.");
@@ -57,7 +104,6 @@ public class MatrixUtils {
 	private static <T> void rotateOuterMatrixRing(T[][] matrix, int topLeft, int bottomRight) {
 		int spliceLength = bottomRight - topLeft;
 		
-		//TODO
 		// swap left and top splice
 		for (int s = 0; s < spliceLength; s++) {
 			int ai = topLeft + spliceLength - s;
