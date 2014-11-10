@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class StringUtils {
 	/**
 	 * Checks whether the given string is comprised of all unique characters
@@ -238,6 +240,25 @@ public class StringUtils {
 		sb.append(lastChar).append(seenCount);
 		
 		return sb.toString();
+	}
+	
+	/**
+	 * Checks if one string is a rotation of another string.
+	 * This relation is reflexive, symmetric and transitive.
+	 * @param a the first string
+	 * @param b the second string
+	 * @return <code>true</code> if one string is a rotation of another, <code>false</code> otherwise
+	 * @throws NullPointerException if any of the provided strings are <code>null</code>
+	 */
+	public static boolean isRotation(String a, String b) {
+		checkForNullString(a, "The first string was null");
+		checkForNullString(b, "The second string was null");
+		
+		if (a.length() != b.length()) {
+			return false;
+		}
+		
+		return (b + b).contains(a);
 	}
 	
 	private static int getTrailingEmptySpaces(char[] s) {
