@@ -14,7 +14,7 @@ public class MyLinkedListTest {
 	@Test
 	public void shouldHaveHeadAsNullWhenLinkedListIsEmpty() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
-		MyLinkedList<Integer>.MyNode head = list.getHead();
+		MyNode<Integer> head = list.getHead();
 		
 		assertNull(head);
 	}
@@ -24,7 +24,7 @@ public class MyLinkedListTest {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
 		list.appendToTail(0);
-		MyLinkedList<Integer>.MyNode head = list.getHead();
+		MyNode<Integer> head = list.getHead();
 		
 		assertNotNull(head);
 	}
@@ -34,12 +34,12 @@ public class MyLinkedListTest {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
 		list.appendToTail(0);
-		MyLinkedList<Integer>.MyNode head1 = list.getHead();
+		MyNode<Integer> head1 = list.getHead();
 		
 		assertNotNull(head1);
 		
 		list.appendToTail(1);
-		MyLinkedList<Integer>.MyNode head2 = list.getHead();
+		MyNode<Integer> head2 = list.getHead();
 		
 		assertNotNull(head2);
 		
@@ -58,11 +58,11 @@ public class MyLinkedListTest {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
 		list.appendToTail(0);
-		MyLinkedList<Integer>.MyNode head1 = list.getHead();
+		MyNode<Integer> head1 = list.getHead();
 		assertNotNull(head1);
 		
 		list.delete(0);
-		MyLinkedList<Integer>.MyNode head2 = list.getHead();
+		MyNode<Integer> head2 = list.getHead();
 		assertNull(head2);
 	}
 	

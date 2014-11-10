@@ -3,20 +3,24 @@ package com.lopina.exercises.chapter2;
 import java.util.Iterator;
 
 public class MyLinkedList<T> implements Iterable<T> {
-	class MyNode {
-		MyNode next = null;
+	public static class MyNode<T> {
+		MyNode<T> next = null;
 		T data;
 		
 		public MyNode(T data) {
 			this.data = data;
 		}
+		
+		public MyNode<T> getNext() {
+			return next;
+		}
 	}
 	
-	private MyNode head;
+	private MyNode<T> head;
 	
 	public MyLinkedList<T> appendToTail(T data) {
-		MyNode end = new MyNode(data);
-		MyNode n = head;
+		MyNode<T> end = new MyNode<T>(data);
+		MyNode<T> n = head;
 		
 		// If the list is empty
 		// just set the new node as head
@@ -43,7 +47,7 @@ public class MyLinkedList<T> implements Iterable<T> {
 	}
 	
 	private void deleteNode(T data) {
-		MyNode n = head;
+		MyNode<T> n = head;
 		
 		if (n.data.equals(data)) {
 			head = head.next;
@@ -59,14 +63,14 @@ public class MyLinkedList<T> implements Iterable<T> {
 		}
 	}
 
-	public MyNode getHead() {
+	public MyNode<T> getHead() {
 		return head;
 	}
 
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
-			private MyLinkedList<T>.MyNode node = MyLinkedList.this.head;
+			private MyNode<T> node = MyLinkedList.this.head;
 			
 			
 			@Override

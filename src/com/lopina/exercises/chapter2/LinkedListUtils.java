@@ -24,7 +24,7 @@ public class LinkedListUtils {
 		
 		Map<T, Boolean> map = new HashMap<T, Boolean>();
 		
-		MyLinkedList<T>.MyNode node = list.getHead();
+		MyNode<T> node = list.getHead();
 		
 		while (node != null) {
 			T element = node.data;
@@ -59,8 +59,8 @@ public class LinkedListUtils {
 		
 		Map<T, Boolean> map = new HashMap<T, Boolean>();
 		
-		MyLinkedList<T>.MyNode prev = null;
-		MyLinkedList<T>.MyNode node = list.getHead();
+		MyNode<T> prev = null;
+		MyNode<T> node = list.getHead();
 		
 		while (node!= null) {
 			T element = node.data;
@@ -94,12 +94,12 @@ public class LinkedListUtils {
 			return list;
 		}
 		
-		MyLinkedList<T>.MyNode node = list.getHead();
+		MyNode<T> node = list.getHead();
 		
 		while (node!= null) {
 			T element = node.data;
-			MyLinkedList<T>.MyNode prevInner = node;
-			MyLinkedList<T>.MyNode nodeInner = node.next;
+			MyNode<T> prevInner = node;
+			MyNode<T> nodeInner = node.next;
 			
 			while (nodeInner != null) {
 				if (nodeInner.data.equals(element)) {
@@ -133,8 +133,8 @@ public class LinkedListUtils {
 			return null;
 		}
 		
-		MyLinkedList<T>.MyNode runner = list.getHead();
-		MyLinkedList<T>.MyNode node = list.getHead();
+		MyNode<T> runner = list.getHead();
+		MyNode<T> node = list.getHead();
 		
 		int i = 0;
 		
@@ -155,6 +155,25 @@ public class LinkedListUtils {
 		return node.data;
 	}
 	
+	/**
+	 * Removes the given node from the list provided it is not at the end of the list.
+	 * @param list the provided list
+	 * @param node the node to remove
+	 * @throws NullPointerException if the provided list is null
+	 * @throws IllegalArgumentException if the provided node is null
+	 * @throws IllegalArgumentException if the node is at the tail of the list
+	 */
+	public static <T> void deleteNodeAccessOnly(MyLinkedList<T> list, MyNode<T> node) {
+		checkForNullList(list, "The provided list was null");
+		checkForNullValue(node, "The provided node was null");
+		checkForNullValue(node.next, "The node was not in the middle of the list");
+		
+		node.data = node.next.data;
+		node.next = node.next.next;
+		
+		return;
+	}
+	
 	private static <T> void checkForNullList(MyLinkedList<T> list, String message) {
 		if (list == null) {
 			throw new NullPointerException(message);
@@ -163,6 +182,12 @@ public class LinkedListUtils {
 	
 	private static void checkForNegativeValue(int k, String message) {
 		if (k < 0) {
+			throw new IllegalArgumentException(message);
+		}
+	}
+	
+	private static void checkForNullValue(Object o, String message) {
+		if (o == null) {
 			throw new IllegalArgumentException(message);
 		}
 	}
