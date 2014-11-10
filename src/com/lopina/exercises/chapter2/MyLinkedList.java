@@ -66,6 +66,10 @@ public class MyLinkedList<T> implements Iterable<T> {
 	public MyNode<T> getHead() {
 		return head;
 	}
+	
+	public void setHead(MyNode<T> head) {
+		this.head = head;
+	}
 
 	@Override
 	public Iterator<T> iterator() {
