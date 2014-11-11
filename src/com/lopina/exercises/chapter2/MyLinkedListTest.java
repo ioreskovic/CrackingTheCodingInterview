@@ -132,13 +132,76 @@ public class MyLinkedListTest {
 			.appendToBack(8)
 			.appendToBack(9);
 		
-		Integer[] expected = new Integer[] { 0, 1, 2, 3, 4, 5, 6,7 , 8, 9 };
+		Integer[] expected = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		
 		List<Integer> listElements = new ArrayList<Integer>();
 		
 		for (Integer i : list) {
 			listElements.add(i);
 		}
+		
+		assertArrayEquals(expected, listElements.toArray(new Integer[listElements.size()]));
+	}
+	
+	@Test
+	public void shouldCreateCircularListWithBothParts() {
+		MyLinkedList<Integer> circularList = LinkedListUtils.createCircularList(3, 8);
+		
+		MyNode<Integer> node = circularList.getHead();
+		MyNode<Integer> tail = circularList.getTail();
+		
+		List<Integer> listElements = new ArrayList<Integer>();
+		
+		while (node != tail) {
+			listElements.add(node.data);
+			node = node.next;
+		}
+		
+		listElements.add(tail.data);
+		
+		Integer[] expected = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		
+		assertArrayEquals(expected, listElements.toArray(new Integer[listElements.size()]));
+	}
+	
+	@Test
+	public void shouldCreateCircularListWithOnlyCircularPart() {
+		MyLinkedList<Integer> circularList = LinkedListUtils.createCircularList(0, 8);
+		
+		MyNode<Integer> node = circularList.getHead();
+		MyNode<Integer> tail = circularList.getTail();
+		
+		List<Integer> listElements = new ArrayList<Integer>();
+		
+		while (node != tail) {
+			listElements.add(node.data);
+			node = node.next;
+		}
+		
+		listElements.add(tail.data);
+		
+		Integer[] expected = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+		
+		assertArrayEquals(expected, listElements.toArray(new Integer[listElements.size()]));
+	}
+	
+	@Test
+	public void shouldCreateCircularListWithOnlyNonCircularPart() {
+		MyLinkedList<Integer> circularList = LinkedListUtils.createCircularList(3, 0);
+		
+		MyNode<Integer> node = circularList.getHead();
+		MyNode<Integer> tail = circularList.getTail();
+		
+		List<Integer> listElements = new ArrayList<Integer>();
+		
+		while (node != tail) {
+			listElements.add(node.data);
+			node = node.next;
+		}
+		
+		listElements.add(tail.data);
+		
+		Integer[] expected = new Integer[] { 0, 1, 2 };
 		
 		assertArrayEquals(expected, listElements.toArray(new Integer[listElements.size()]));
 	}

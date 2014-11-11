@@ -323,6 +323,59 @@ public class LinkedListUtils {
 		return reverseList(add(aReversed, bReversed));
 	}
 	
+	public static <T> T findLoopStart(MyLinkedList<T> list) {
+		checkForNullList(list, "The provided list was null");
+		
+		MyNode<T> slowRunner = list.getHead();
+		MyNode<T> fastRunner = list.getHead();
+		
+		do {
+			if (slowRunner == null || fastRunner == null) {
+				return null;
+			}
+			
+			slowRunner = slowRunner.next;
+			
+			fastRunner = fastRunner.next;
+			if (fastRunner == null) {
+				return null;
+			}
+			fastRunner = fastRunner.next;
+		} while (slowRunner != fastRunner);
+		
+		slowRunner = list.getHead();
+		
+		while (slowRunner != fastRunner) {
+			slowRunner = slowRunner.next;
+			fastRunner = fastRunner.next;
+		}
+		
+		return slowRunner.data;
+	}
+	
+	public static MyLinkedList<Integer> createCircularList(int nonCircularLength, int circularLength) {
+		MyLinkedList<Integer> circularList = new MyLinkedList<Integer>();
+		
+		MyNode<Integer> circularStartNode = null;
+		
+		for (int i = 0; i < nonCircularLength; i++) {
+			circularList.appendToBack(i);
+		}
+		
+		for (int i = 0; i < circularLength; i++) {
+			circularList.appendToBack(nonCircularLength + i);
+			
+			if (i == 0) {
+				circularStartNode = circularList.getTail();
+			}
+			
+		}
+		
+		circularList.getTail().next = circularStartNode;
+		
+		return circularList;
+	}
+	
 	private static <T> MyLinkedList<T> reverseList(MyLinkedList<T> list) {
 		MyNode<T> node = list.getHead();
 		MyLinkedList<T> reversedList = new MyLinkedList<T>();
