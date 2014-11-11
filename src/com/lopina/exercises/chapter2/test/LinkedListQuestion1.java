@@ -64,13 +64,13 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveAllElementsButOneWhenListHasAllSameElements() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -93,13 +93,13 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveAllElementsButOneWhenListHasAllSameElementsFast() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -122,13 +122,13 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveAllElementsButOneWhenListHasAllSameElementsConstantSpace() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -154,15 +154,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveDuplicateElementsWhenListHasDuplicateElements() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("F")
-			.appendToTail("O")
-			.appendToTail("L")
-			.appendToTail("L")
-			.appendToTail("O")
-			.appendToTail("W")
-			.appendToTail(" ")
-			.appendToTail("U")
-			.appendToTail("P");
+		list.appendToBack("F")
+			.appendToBack("O")
+			.appendToBack("L")
+			.appendToBack("L")
+			.appendToBack("O")
+			.appendToBack("W")
+			.appendToBack(" ")
+			.appendToBack("U")
+			.appendToBack("P");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -185,15 +185,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveDuplicateElementsWhenListHasDuplicateElementsFast() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("F")
-			.appendToTail("O")
-			.appendToTail("L")
-			.appendToTail("L")
-			.appendToTail("O")
-			.appendToTail("W")
-			.appendToTail(" ")
-			.appendToTail("U")
-			.appendToTail("P");
+		list.appendToBack("F")
+			.appendToBack("O")
+			.appendToBack("L")
+			.appendToBack("L")
+			.appendToBack("O")
+			.appendToBack("W")
+			.appendToBack(" ")
+			.appendToBack("U")
+			.appendToBack("P");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -216,15 +216,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveDuplicateElementsWhenListHasDuplicateElementsConstantSpace() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("F")
-			.appendToTail("O")
-			.appendToTail("L")
-			.appendToTail("L")
-			.appendToTail("O")
-			.appendToTail("W")
-			.appendToTail(" ")
-			.appendToTail("U")
-			.appendToTail("P");
+		list.appendToBack("F")
+			.appendToBack("O")
+			.appendToBack("L")
+			.appendToBack("L")
+			.appendToBack("O")
+			.appendToBack("W")
+			.appendToBack(" ")
+			.appendToBack("U")
+			.appendToBack("P");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -250,15 +250,15 @@ public class LinkedListQuestion1 {
 	public void shouldNotRemoveElementsWhenListHasNoDuplicateElements() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("D")
-			.appendToTail("E")
-			.appendToTail("F")
-			.appendToTail("G")
-			.appendToTail("H")
-			.appendToTail("I");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("D")
+			.appendToBack("E")
+			.appendToBack("F")
+			.appendToBack("G")
+			.appendToBack("H")
+			.appendToBack("I");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -281,15 +281,15 @@ public class LinkedListQuestion1 {
 	public void shouldNotRemoveElementsWhenListHasNoDuplicateElementsFast() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("D")
-			.appendToTail("E")
-			.appendToTail("F")
-			.appendToTail("G")
-			.appendToTail("H")
-			.appendToTail("I");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("D")
+			.appendToBack("E")
+			.appendToBack("F")
+			.appendToBack("G")
+			.appendToBack("H")
+			.appendToBack("I");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -312,15 +312,15 @@ public class LinkedListQuestion1 {
 	public void shouldNotRemoveElementsWhenListHasNoDuplicateElementsConstantSpace() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("D")
-			.appendToTail("E")
-			.appendToTail("F")
-			.appendToTail("G")
-			.appendToTail("H")
-			.appendToTail("I");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("D")
+			.appendToBack("E")
+			.appendToBack("F")
+			.appendToBack("G")
+			.appendToBack("H")
+			.appendToBack("I");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -346,15 +346,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveSingleAndMultipleDuplicateElementsWhenListNoDuplicateElements() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -377,15 +377,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveSingleAndMultipleDuplicateElementsWhenListNoDuplicateElementsFast() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		
@@ -408,15 +408,15 @@ public class LinkedListQuestion1 {
 	public void shouldRemoveSingleAndMultipleDuplicateElementsWhenListNoDuplicateElementsConstantSpace() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		
-		list.appendToTail("A")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("C")
-			.appendToTail("B")
-			.appendToTail("B")
-			.appendToTail("A");
+		list.appendToBack("A")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("C")
+			.appendToBack("B")
+			.appendToBack("B")
+			.appendToBack("A");
 		
 		System.out.println("Before: " + list.toString());
 		

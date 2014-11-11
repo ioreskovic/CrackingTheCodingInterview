@@ -29,17 +29,17 @@ public class LinkedListQuestion2 {
 	public void shouldThrowIllegalArgumentExceptionWhenNegativeK() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(10)
-			.appendToTail(9)
-			.appendToTail(8)
-			.appendToTail(7)
-			.appendToTail(6)
-			.appendToTail(5)
-			.appendToTail(4)
-			.appendToTail(3)
-			.appendToTail(2)
-			.appendToTail(1)
-			.appendToTail(0);
+		list.appendToBack(10)
+			.appendToBack(9)
+			.appendToBack(8)
+			.appendToBack(7)
+			.appendToBack(6)
+			.appendToBack(5)
+			.appendToBack(4)
+			.appendToBack(3)
+			.appendToBack(2)
+			.appendToBack(1)
+			.appendToBack(0);
 		
 		assertEquals(null, LinkedListUtils.getKthToTheEndElement(-1, list));
 	}
@@ -48,17 +48,17 @@ public class LinkedListQuestion2 {
 	public void shouldThrowIllegalArgumentExceptionWhenListIsTooShortForK() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(10)
-			.appendToTail(9)
-			.appendToTail(8)
-			.appendToTail(7)
-			.appendToTail(6)
-			.appendToTail(5)
-			.appendToTail(4)
-			.appendToTail(3)
-			.appendToTail(2)
-			.appendToTail(1)
-			.appendToTail(0);
+		list.appendToBack(10)
+			.appendToBack(9)
+			.appendToBack(8)
+			.appendToBack(7)
+			.appendToBack(6)
+			.appendToBack(5)
+			.appendToBack(4)
+			.appendToBack(3)
+			.appendToBack(2)
+			.appendToBack(1)
+			.appendToBack(0);
 		
 		assertEquals(Integer.valueOf(0), LinkedListUtils.getKthToTheEndElement(11, list));
 	}
@@ -67,17 +67,17 @@ public class LinkedListQuestion2 {
 	public void shouldReturnProperElementWhenTheIndexIsSet() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(10)
-			.appendToTail(9)
-			.appendToTail(8)
-			.appendToTail(7)
-			.appendToTail(6)
-			.appendToTail(5)
-			.appendToTail(4)
-			.appendToTail(3)
-			.appendToTail(2)
-			.appendToTail(1)
-			.appendToTail(0);
+		list.appendToBack(10)
+			.appendToBack(9)
+			.appendToBack(8)
+			.appendToBack(7)
+			.appendToBack(6)
+			.appendToBack(5)
+			.appendToBack(4)
+			.appendToBack(3)
+			.appendToBack(2)
+			.appendToBack(1)
+			.appendToBack(0);
 		
 		assertEquals(Integer.valueOf(0), LinkedListUtils.getKthToTheEndElement(0, list));
 		assertEquals(Integer.valueOf(1), LinkedListUtils.getKthToTheEndElement(1, list));

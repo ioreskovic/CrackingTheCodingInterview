@@ -59,10 +59,10 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(0)
-		 .appendToTail(1);
+		a.appendToBack(0)
+		 .appendToBack(1);
 		
-		b.appendToTail(1);
+		b.appendToBack(1);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -82,10 +82,10 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(1)
-		 .appendToTail(0);
+		a.appendToBack(1)
+		 .appendToBack(0);
 		
-		b.appendToTail(1);
+		b.appendToBack(1);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
 		
@@ -108,10 +108,10 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(6)
-		 .appendToTail(1);
+		a.appendToBack(6)
+		 .appendToBack(1);
 		
-		b.appendToTail(4);
+		b.appendToBack(4);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -131,10 +131,10 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(1)
-		 .appendToTail(6);
+		a.appendToBack(1)
+		 .appendToBack(6);
 		
-		b.appendToTail(4);
+		b.appendToBack(4);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
 		
@@ -157,11 +157,11 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(0)
-		 .appendToTail(1);
+		a.appendToBack(0)
+		 .appendToBack(1);
 		
-		b.appendToTail(0)
-		 .appendToTail(2);
+		b.appendToBack(0)
+		 .appendToBack(2);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -181,11 +181,11 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(1)
-		 .appendToTail(0);
+		a.appendToBack(1)
+		 .appendToBack(0);
 		
-		b.appendToTail(2)
-		 .appendToTail(0);
+		b.appendToBack(2)
+		 .appendToBack(0);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -208,11 +208,11 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(5)
-		 .appendToTail(1);
+		a.appendToBack(5)
+		 .appendToBack(1);
 		
-		b.appendToTail(5)
-		 .appendToTail(1);
+		b.appendToBack(5)
+		 .appendToBack(1);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -232,11 +232,11 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(1)
-		 .appendToTail(5);
+		a.appendToBack(1)
+		 .appendToBack(5);
 		
-		b.appendToTail(1)
-		 .appendToTail(5);
+		b.appendToBack(1)
+		 .appendToBack(5);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
 		
@@ -259,8 +259,8 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(9)
-		 .appendToTail(9);
+		a.appendToBack(9)
+		 .appendToBack(9);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 		
@@ -280,8 +280,8 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
 		
-		a.appendToTail(9)
-		 .appendToTail(9);
+		a.appendToBack(9)
+		 .appendToBack(9);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
 		
