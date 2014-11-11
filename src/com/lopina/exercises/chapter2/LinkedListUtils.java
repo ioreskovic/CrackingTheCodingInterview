@@ -177,10 +177,18 @@ public class LinkedListUtils {
 	/**
 	 * Partitions the list around the provided pivot value in a way that every element </br>
 	 * less than pivot is before any element greater than or equal pivot.
+	 * Time complexity is O(n)</br>
+	 * Space complexity is O(1)
 	 * @param list the provided list
 	 * @param pivotValue the pivot value
 	 */
 	public static <T extends Comparable<T>> void partitionAround(MyLinkedList<T> list, T pivotValue) {
+		checkForNullList(list, "The provided list was null");
+		
+		if (list.getHead() == null) {
+			return;
+		}
+		
 		MyNode<T> pivotNode = new MyNode<T>(pivotValue);
 		MyNode<T> last = null;
 		MyNode<T> curr = null;
@@ -195,6 +203,46 @@ public class LinkedListUtils {
 		}
 		
 		list.setHead(pivotNode.next);
+	}
+	
+	/**
+	 * Partitions the list around the provided pivot value in a way that every element </br>
+	 * less than pivot is before any element greater than or equal pivot.
+	 * Time complexity is O(n<sup>2</sup>) because while creating new list(s)<br>
+	 * new elements are apended to tail, which takes O(n) for 1 element.</br>
+	 * Space complexity is O(n)
+	 * @param list the provided list
+	 * @param pivotValue the pivot value
+	 */
+	public static <T extends Comparable<T>> MyLinkedList<T> partitionAroundSimple(MyLinkedList<T> list, T pivotValue) {
+		checkForNullList(list, "The provided list was null");
+		
+		if (list.getHead() == null) {
+			return new MyLinkedList<T>();
+		}
+		
+		MyLinkedList<T> lessThanList = new MyLinkedList<T>();
+		MyLinkedList<T> greaterThanOrEqualList = new MyLinkedList<T>();
+		
+		for (T element : list) {
+			if (element.compareTo(pivotValue) < 0) {
+				lessThanList.appendToTail(element);
+			} else {
+				greaterThanOrEqualList.appendToTail(element);
+			}
+		}
+		
+		MyLinkedList<T> partitionedList = new MyLinkedList<T>();
+		
+		for (T element : lessThanList) {
+			partitionedList.appendToTail(element);
+		}
+		
+		for (T element : greaterThanOrEqualList) {
+			partitionedList.appendToTail(element);
+		}
+		
+		return partitionedList;
 	}
 	
 	private static <T> void swapValues(MyNode<T> aNode, MyNode<T> bNode) {
