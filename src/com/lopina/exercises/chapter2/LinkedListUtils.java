@@ -3,6 +3,8 @@ package com.lopina.exercises.chapter2;
 import java.util.HashMap;
 import java.util.Map;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.lopina.exercises.chapter2.MyLinkedList.MyNode;
 
 
@@ -245,6 +247,56 @@ public class LinkedListUtils {
 		return partitionedList;
 	}
 	
+	public static MyLinkedList<Integer> add(MyLinkedList<Integer> a, MyLinkedList<Integer> b) {
+		checkForNullList(a, "The first list was null");
+		checkForNullList(a, "The second list was null");
+		
+		MyLinkedList<Integer> c = new MyLinkedList<Integer>();
+		
+		MyNode<Integer> aNode = a.getHead();
+		MyNode<Integer> bNode = b.getHead();
+		
+		int carry = 0;
+		
+		while (aNode != null || bNode != null) {
+			int aValue = getValueOrDefault(aNode, 0);
+			int bValue = getValueOrDefault(bNode, 0);
+			
+			int cValue = aValue + bValue + carry;
+			
+			if (cValue >= 10) {
+				carry = cValue / 10;
+				cValue = cValue % 10;
+			} else {
+				carry = 0;
+			}
+			
+			c.appendToTail(cValue);
+			
+			if (aNode != null) {
+				aNode = aNode.next;
+			}
+			
+			if (bNode != null) {
+				bNode = bNode.next;
+			}
+		}
+		
+		if (carry > 0) {
+			c.appendToTail(carry);
+		}
+		
+		return c;
+	}
+	
+	private static int getValueOrDefault(MyNode<Integer> node, int defaultValue) {
+		if (node == null || node.data == null) {
+			return defaultValue;
+		} else {
+			return node.data;
+		}
+	}
+
 	private static <T> void swapValues(MyNode<T> aNode, MyNode<T> bNode) {
 		T temp = aNode.data;
 		aNode.data = bNode.data;
