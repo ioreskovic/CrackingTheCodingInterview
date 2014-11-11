@@ -247,6 +247,17 @@ public class LinkedListUtils {
 		return partitionedList;
 	}
 	
+	/**
+	 * Adds the 2 linked lists with integer values in their nodes. The numbers are represented in reverse order</br>
+	 * E.g. number 912 is represented as <code>2 -> 1 -> 9</code></br>
+	 * Time complexity is O(n) if adding to the end of the list can be done in O(1), O(n<sup>2</sup>) otherwise</br>
+	 * where n is the log[10] of bigger number.
+	 * Space complexity is O(n), because we are returning a list of elements that represent the number.
+	 * @param a the first number as list in specified format
+	 * @param b the second number as list in specified format
+	 * @return the sum of the two numbers as list in specified format
+	 * @throws NullPointerException if any of the lists are <code>null</code>
+	 */
 	public static MyLinkedList<Integer> add(MyLinkedList<Integer> a, MyLinkedList<Integer> b) {
 		checkForNullList(a, "The first list was null");
 		checkForNullList(a, "The second list was null");
@@ -289,6 +300,53 @@ public class LinkedListUtils {
 		return c;
 	}
 	
+	/**
+	 * Adds the 2 linked lists with integer values in their nodes. The numbers are represented in straight order</br>
+	 * E.g. number 912 is represented as <code>9 -> 1 -> 2</code>
+	 * Time complexity is O(n) if adding to the end of the list can be done in O(1), O(n<sup>2</sup>) otherwise</br>
+	 * where n is the log[10] of bigger number.
+	 * Space complexity is O(n), because we are returning a list of elements that represent the number.
+	 * @param a the first number as list in specified format
+	 * @param b the second number as list in specified format
+	 * @return the sum of the two numbers as list in specified format
+	 * @throws NullPointerException if any of the lists are <code>null</code>
+	 */
+	public static MyLinkedList<Integer> addAlternate(MyLinkedList<Integer> a, MyLinkedList<Integer> b) {
+		checkForNullList(a, "The first list was null");
+		checkForNullList(a, "The second list was null");
+		
+		MyLinkedList<Integer> c = new MyLinkedList<Integer>();
+		
+		MyLinkedList<Integer> aReversed = reverseList(a);
+		MyLinkedList<Integer> bReversed = reverseList(b);
+		
+		return reverseList(add(aReversed, bReversed));
+	}
+	
+	private static <T> MyLinkedList<T> reverseList(MyLinkedList<T> list) {
+		MyNode<T> node = list.getHead();
+		MyLinkedList<T> reversedList = new MyLinkedList<T>();
+		
+		reverseAdd(node, reversedList);
+		
+		return reversedList;
+	}
+	
+	private static <T> void reverseAdd(MyNode<T> node, MyLinkedList<T> list) {
+		if (node != null) {
+			reverseAdd(node.next, list);
+			list.appendToTail(node.data);
+		}
+	}
+
+	private static MyNode<Integer> getNextNodeOrDefault(MyNode<Integer> node, MyNode<Integer> defaultValue) {
+		if (node == null) {
+			return node.next;
+		} else {
+			return defaultValue;
+		}
+	}
+
 	private static int getValueOrDefault(MyNode<Integer> node, int defaultValue) {
 		if (node == null || node.data == null) {
 			return defaultValue;

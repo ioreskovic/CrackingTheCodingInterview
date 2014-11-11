@@ -20,6 +20,17 @@ public class LinkedListQuestion5 {
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
 	}
 	
+	@Test(expected = NullPointerException.class)
+	public void shouldThrowNullPointerExceptionOnEitherListsBeingNullAlternate() {
+		MyLinkedList<Integer> a = null;
+		MyLinkedList<Integer> b = null;
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
+	}
+	
+	
+	
+	
 	@Test
 	public void shouldReturnEmptyListWhenBothListsAreBeingEmpty() {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
@@ -29,6 +40,19 @@ public class LinkedListQuestion5 {
 		
 		assertNull(c.getHead());
 	}
+	
+	@Test
+	public void shouldReturnEmptyListWhenBothListsAreBeingEmptyAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
+		
+		assertNull(c.getHead());
+	}
+	
+	
+	
 	
 	@Test
 	public void shouldCalculateCorrectlyWhenOneListIsShorterThanAnotherWithoutOverflow() {
@@ -54,6 +78,32 @@ public class LinkedListQuestion5 {
 	}
 	
 	@Test
+	public void shouldCalculateCorrectlyWhenOneListIsShorterThanAnotherWithoutOverflowAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		a.appendToTail(1)
+		 .appendToTail(0);
+		
+		b.appendToTail(1);
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
+		
+		Integer[] expecteds = new Integer[]{ 1, 1 };
+		
+		List<Integer> actuals = new ArrayList<Integer>();
+		
+		for (Integer i : c) {
+			actuals.add(i);
+		}
+		
+		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
+	}
+	
+	
+	
+	
+	@Test
 	public void shouldCalculateCorrectlyWhenOneListIsShorterThanAnotherWithOverflow() {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
@@ -75,6 +125,32 @@ public class LinkedListQuestion5 {
 		
 		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
 	}
+	
+	@Test
+	public void shouldCalculateCorrectlyWhenOneListIsShorterThanAnotherWithOverflowAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		a.appendToTail(1)
+		 .appendToTail(6);
+		
+		b.appendToTail(4);
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
+		
+		Integer[] expecteds = new Integer[]{ 2, 0 };
+		
+		List<Integer> actuals = new ArrayList<Integer>();
+		
+		for (Integer i : c) {
+			actuals.add(i);
+		}
+		
+		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
+	}
+	
+	
+	
 	
 	@Test
 	public void shouldCalculateCorrectlyWhenBothListsAreSameLengthAndWithoutOverflow() {
@@ -101,6 +177,33 @@ public class LinkedListQuestion5 {
 	}
 	
 	@Test
+	public void shouldCalculateCorrectlyWhenBothListsAreSameLengthAndWithoutOverflowAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		a.appendToTail(1)
+		 .appendToTail(0);
+		
+		b.appendToTail(2)
+		 .appendToTail(0);
+		
+		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
+		
+		Integer[] expecteds = new Integer[]{ 3, 0 };
+		
+		List<Integer> actuals = new ArrayList<Integer>();
+		
+		for (Integer i : c) {
+			actuals.add(i);
+		}
+		
+		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
+	}
+	
+	
+	
+	
+	@Test
 	public void shouldCalculateCorrectlyWhenBothListsAreSameLengthAndWithOverflow() {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
@@ -125,6 +228,33 @@ public class LinkedListQuestion5 {
 	}
 	
 	@Test
+	public void shouldCalculateCorrectlyWhenBothListsAreSameLengthAndWithOverflowAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		a.appendToTail(1)
+		 .appendToTail(5);
+		
+		b.appendToTail(1)
+		 .appendToTail(5);
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
+		
+		Integer[] expecteds = new Integer[]{ 3, 0 };
+		
+		List<Integer> actuals = new ArrayList<Integer>();
+		
+		for (Integer i : c) {
+			actuals.add(i);
+		}
+		
+		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
+	}
+	
+	
+	
+	
+	@Test
 	public void shouldReturnCopyOfTheNonEmptyListWhenOneListIsEmpty() {
 		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
@@ -133,6 +263,27 @@ public class LinkedListQuestion5 {
 		 .appendToTail(9);
 		
 		MyLinkedList<Integer> c = LinkedListUtils.add(a, b);
+		
+		Integer[] expecteds = new Integer[]{ 9, 9 };
+		
+		List<Integer> actuals = new ArrayList<Integer>();
+		
+		for (Integer i : c) {
+			actuals.add(i);
+		}
+		
+		assertArrayEquals(expecteds, actuals.toArray(new Integer[actuals.size()]));
+	}
+	
+	@Test
+	public void shouldReturnCopyOfTheNonEmptyListWhenOneListIsEmptyAlternate() {
+		MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+		MyLinkedList<Integer> b = new MyLinkedList<Integer>();
+		
+		a.appendToTail(9)
+		 .appendToTail(9);
+		
+		MyLinkedList<Integer> c = LinkedListUtils.addAlternate(a, b);
 		
 		Integer[] expecteds = new Integer[]{ 9, 9 };
 		
