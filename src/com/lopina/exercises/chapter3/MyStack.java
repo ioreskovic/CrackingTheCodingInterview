@@ -17,12 +17,15 @@ public class MyStack<T> implements Iterable<T> {
 	}
 	
 	private MyNode<T> top = null;
+	private int size = 0;
 	
 	public void push(T item) {
 		MyNode<T> node = new MyNode<T>(item);
 		
 		node.next = top;
 		top = node;
+		
+		size ++;
 	}
 	
 	public T pop() {
@@ -31,6 +34,8 @@ public class MyStack<T> implements Iterable<T> {
 		if (top != null) {
 			item = top.data;
 			top = top.next;
+			
+			size --;
 		}
 		
 		return item;
@@ -61,5 +66,9 @@ public class MyStack<T> implements Iterable<T> {
 				return data;
 			}
 		};
+	}
+	
+	public int size() {
+		return size;
 	}
 }

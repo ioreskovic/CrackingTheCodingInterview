@@ -19,6 +19,7 @@ public class MyQueue<T> implements Iterable<T> {
 	
 	private MyNode<T> first = null;
 	private MyNode<T> last = null;
+	private int size = 0;
 	
 	public void enqueue(T item) {
 		MyNode<T> newNode = new MyNode<T>(item);
@@ -30,6 +31,8 @@ public class MyQueue<T> implements Iterable<T> {
 			last.next = newNode;
 			last = newNode;
 		}
+		
+		size ++;
 	}
 	
 	public T dequeue() {
@@ -39,7 +42,7 @@ public class MyQueue<T> implements Iterable<T> {
 			item = first.data;
 			first = first.next;
 			
-			return item;
+			size --;
 		}
 		
 		return item;
@@ -62,5 +65,9 @@ public class MyQueue<T> implements Iterable<T> {
 				return data;
 			}
 		};
+	}
+	
+	public int size() {
+		return size;
 	}
 }
