@@ -323,6 +323,12 @@ public class LinkedListUtils {
 		return reverseList(add(aReversed, bReversed));
 	}
 	
+	/**
+	 * Finds the start node in the provided circular list
+	 * @param list the provided list
+	 * @return the value of the loop start node if the list is a circular list, <code>null</code> otherwise
+	 * @throws NullPointerException if the provided list is a null list
+	 */
 	public static <T> T findLoopStart(MyLinkedList<T> list) {
 		checkForNullList(list, "The provided list was null");
 		
@@ -351,6 +357,26 @@ public class LinkedListUtils {
 		}
 		
 		return slowRunner.data;
+	}
+	
+	public static <T> boolean isPalindrome(MyLinkedList<T> list) {
+		checkForNullList(list, "The provided list was null");
+		
+		MyLinkedList<T> reverseList = reverseList(list);
+		
+		MyNode<T> forwardNode = list.getHead();
+		MyNode<T> reverseNode = reverseList.getHead();
+		
+		while (forwardNode != null && reverseNode != null) {
+			if (!forwardNode.data.equals(reverseNode.data)) {
+				return false;
+			}
+			
+			forwardNode = forwardNode.next;
+			reverseNode = reverseNode.next;
+		}
+		
+		return true;
 	}
 	
 	public static MyLinkedList<Integer> createCircularList(int nonCircularLength, int circularLength) {
