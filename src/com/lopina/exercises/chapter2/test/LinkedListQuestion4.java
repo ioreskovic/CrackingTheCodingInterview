@@ -53,16 +53,16 @@ public class LinkedListQuestion4 {
 	public void shouldPartitionTheListProperlyWhenGivenAllSameElements() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5);
+		list.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5);
 		
 		LinkedListUtils.partitionAround(list, 5);
 		
@@ -81,16 +81,16 @@ public class LinkedListQuestion4 {
 	public void shouldPartitionTheListProperlyWhenGivenAllSameElementsSimple() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5)
-			.appendToTail(5);
+		list.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5)
+			.appendToBack(5);
 		
 		MyLinkedList<Integer> partitionedList = LinkedListUtils.partitionAroundSimple(list, 5);
 		
@@ -112,16 +112,16 @@ public class LinkedListQuestion4 {
 	public void shouldPartitionAroundPivotWhenProvidedPivotValue() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(0)
-			.appendToTail(9)
-			.appendToTail(1)
-			.appendToTail(8)
-			.appendToTail(2)
-			.appendToTail(7)
-			.appendToTail(3)
-			.appendToTail(6)
-			.appendToTail(4)
-			.appendToTail(5);
+		list.appendToBack(0)
+			.appendToBack(9)
+			.appendToBack(1)
+			.appendToBack(8)
+			.appendToBack(2)
+			.appendToBack(7)
+			.appendToBack(3)
+			.appendToBack(6)
+			.appendToBack(4)
+			.appendToBack(5);
 		
 		LinkedListUtils.partitionAround(list, 5);
 		
@@ -140,16 +140,16 @@ public class LinkedListQuestion4 {
 	public void shouldPartitionAroundPivotWhenProvidedPivotValueSimple() {
 		MyLinkedList<Integer> list = new MyLinkedList<Integer>();
 		
-		list.appendToTail(0)
-			.appendToTail(9)
-			.appendToTail(1)
-			.appendToTail(8)
-			.appendToTail(2)
-			.appendToTail(7)
-			.appendToTail(3)
-			.appendToTail(6)
-			.appendToTail(4)
-			.appendToTail(5);
+		list.appendToBack(0)
+			.appendToBack(9)
+			.appendToBack(1)
+			.appendToBack(8)
+			.appendToBack(2)
+			.appendToBack(7)
+			.appendToBack(3)
+			.appendToBack(6)
+			.appendToBack(4)
+			.appendToBack(5);
 		
 		MyLinkedList<Integer> partitionedList = LinkedListUtils.partitionAroundSimple(list, 5);
 		

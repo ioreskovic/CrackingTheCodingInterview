@@ -17,25 +17,34 @@ public class MyLinkedList<T> implements Iterable<T> {
 	}
 	
 	private MyNode<T> head;
+	private MyNode<T> tail;
 	
-	public MyLinkedList<T> appendToTail(T data) {
+	public MyLinkedList<T> appendToFront(T data) {
+		MyNode<T> start = new MyNode<T>(data);
+		
+		if (head == null) {
+			tail = start;
+		} else {
+			start.next = head;
+		}
+		
+		head = start;
+		
+		return this;
+	}
+	
+	public MyLinkedList<T> appendToBack(T data) {
 		MyNode<T> end = new MyNode<T>(data);
+		
 		MyNode<T> n = head;
 		
-		// If the list is empty
-		// just set the new node as head
-		//
-		// Otherwise, find tail, and append
-		// the new node as new tail
 		if (head == null) {
 			head = end;
 		} else {
-			while (n.next != null) {
-				n = n.next;
-			}
-			
-			n.next = end;
+			tail.next = end;
 		}
+		
+		tail = end;
 		
 		return this;
 	}
@@ -50,11 +59,17 @@ public class MyLinkedList<T> implements Iterable<T> {
 		MyNode<T> n = head;
 		
 		if (n.data.equals(data)) {
+			if (tail == head) {
+				tail = null;
+			}
+			
 			head = head.next;
 		} else {
 			while (n.next != null) {
 				if (n.next.data.equals(data)) {
 					n.next = n.next.next;
+					
+					tail = n;
 					return;
 				}
 				
@@ -69,6 +84,14 @@ public class MyLinkedList<T> implements Iterable<T> {
 	
 	public void setHead(MyNode<T> head) {
 		this.head = head;
+	}
+	
+	public MyNode<T> getTail() {
+		return tail;
+	}
+	
+	public void setTail(MyNode<T> tail) {
+		this.tail = tail;
 	}
 
 	@Override

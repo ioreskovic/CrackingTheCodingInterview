@@ -228,20 +228,20 @@ public class LinkedListUtils {
 		
 		for (T element : list) {
 			if (element.compareTo(pivotValue) < 0) {
-				lessThanList.appendToTail(element);
+				lessThanList.appendToBack(element);
 			} else {
-				greaterThanOrEqualList.appendToTail(element);
+				greaterThanOrEqualList.appendToBack(element);
 			}
 		}
 		
 		MyLinkedList<T> partitionedList = new MyLinkedList<T>();
 		
 		for (T element : lessThanList) {
-			partitionedList.appendToTail(element);
+			partitionedList.appendToBack(element);
 		}
 		
 		for (T element : greaterThanOrEqualList) {
-			partitionedList.appendToTail(element);
+			partitionedList.appendToBack(element);
 		}
 		
 		return partitionedList;
@@ -282,7 +282,7 @@ public class LinkedListUtils {
 				carry = 0;
 			}
 			
-			c.appendToTail(cValue);
+			c.appendToBack(cValue);
 			
 			if (aNode != null) {
 				aNode = aNode.next;
@@ -294,7 +294,7 @@ public class LinkedListUtils {
 		}
 		
 		if (carry > 0) {
-			c.appendToTail(carry);
+			c.appendToBack(carry);
 		}
 		
 		return c;
@@ -335,7 +335,7 @@ public class LinkedListUtils {
 	private static <T> void reverseAdd(MyNode<T> node, MyLinkedList<T> list) {
 		if (node != null) {
 			reverseAdd(node.next, list);
-			list.appendToTail(node.data);
+			list.appendToBack(node.data);
 		}
 	}
 
