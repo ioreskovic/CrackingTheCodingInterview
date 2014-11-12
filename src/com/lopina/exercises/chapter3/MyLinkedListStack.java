@@ -75,4 +75,5 @@ public class MyLinkedListStack<T> implements MyStack<T> {
 	public int size() {
 		return size;
 	}
+	
 }

@@ -109,5 +109,53 @@ public class SetOfStacks<T> implements MyStack<T> {
 		
 		return sb.toString();
 	}
+	
+	public T popAt(int stackIndex) {
+		T item = stacks.get(stackIndex).pop();
+		
+		int nextStackIndex = stackIndex + 1;
+		MyStack<T> nextStack = getStack(nextStackIndex);
+		
+		while (nextStack != null && nextStack.size() > 0) {
+			MyStack<T> reversedClone = new MyLinkedListStack<T>();
+			
+			for (T element : nextStack) {
+				reversedClone.push(element);
+			}
+			
+			stacks.get(stackIndex).push(reversedClone.pop());
+			
+			MyStack<T> forwardClone = new MyLinkedListStack<T>();
+			
+			for (T element : reversedClone) {
+				forwardClone.push(element);
+			}
+			
+			this.stacks.set(nextStackIndex, forwardClone);
+			
+			stackIndex++;
+			nextStackIndex++;
+			nextStack = getStack(nextStackIndex);
+		}
+		
+		cleanUpStacks();
+		
+		return item;
+	}
+
+	private void cleanUpStacks() {
+		for (int i = 1; i < stacks.size(); i++) {
+			if (stacks.get(i).size() == 0) {
+				stacks.remove(i);
+			}
+		}
+	}
+
+	private MyStack<T> getStack(int i) {
+		if (i < this.stacks.size()) {
+			return this.stacks.get(i);
+		}
+		return null;
+	}
 
 }

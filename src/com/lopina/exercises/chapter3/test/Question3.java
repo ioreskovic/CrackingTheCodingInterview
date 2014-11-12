@@ -135,5 +135,76 @@ public class Question3 {
 		assertEquals(0, sos.size());
 		System.out.println(sos.toString());
 	}
+	
+	@Test
+	public void shouldPopFromFirstStackWhenOnlyOneSubStackExists() {
+		SetOfStacks<Integer> sos = new SetOfStacks<Integer>(6);
+		System.out.println(sos.toString());
+		assertEquals(0, sos.size());
+		assertNull(sos.peek());
+		
+		sos.push(1);
+		assertEquals(1, sos.size());
+		assertEquals(Integer.valueOf(1), sos.peek());
+		System.out.println(sos.toString());
+		
+		assertEquals(Integer.valueOf(1), sos.popAt(0));
+		System.out.println(sos.toString());
+	}
+	
+	@Test
+	public void shouldPopAndRollowerWhenPoppingFromNonLastStack() {
+		SetOfStacks<Integer> sos = new SetOfStacks<Integer>(6);
+		System.out.println(sos.toString());
+		assertEquals(0, sos.size());
+		assertNull(sos.peek());
+		
+		sos.push(1);
+		sos.push(2);
+		sos.push(3);
+		sos.push(4);
+		sos.push(5);
+		sos.push(6);
+		sos.push(7);
+		sos.push(8);
+		sos.push(9);
+		sos.push(10);
+		sos.push(11);
+		sos.push(12);
+		sos.push(13);
+		sos.push(14);
+		
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		sos.popAt(0);
+		System.out.println(sos.toString());
+		
+		
+	}
 
 }
