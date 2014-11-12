@@ -11,14 +11,14 @@ public class MyStackTest {
 
 	@Test
 	public void emptyStackShouldHaveSizeZero() {
-		MyStack<Integer> stack = new MyStack<Integer>();
+		MyLinkedListStack<Integer> stack = new MyLinkedListStack<Integer>();
 		
 		assertEquals(0, stack.size());
 	}
 	
 	@Test
 	public void stackSizeShouldCorrespondWithTheNumberOfElements() {
-		MyStack<Integer> stack = new MyStack<Integer>();
+		MyLinkedListStack<Integer> stack = new MyLinkedListStack<Integer>();
 		assertEquals(0, stack.size());
 		
 		stack.push(1);
@@ -36,7 +36,7 @@ public class MyStackTest {
 	
 	@Test
 	public void stackElementsShouldBeInLifoOrder() {
-		MyStack<Integer> stack = new MyStack<Integer>();
+		MyLinkedListStack<Integer> stack = new MyLinkedListStack<Integer>();
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);
@@ -54,7 +54,7 @@ public class MyStackTest {
 	
 	@Test
 	public void peekMethodShouldNotAffectStackStructure() {
-		MyStack<Integer> stack = new MyStack<Integer>();
+		MyLinkedListStack<Integer> stack = new MyLinkedListStack<Integer>();
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);
@@ -72,7 +72,7 @@ public class MyStackTest {
 	
 	@Test
 	public void stackIteratorShouldBeFromTopToBottomOrder() {
-		MyStack<Integer> stack = new MyStack<Integer>();
+		MyLinkedListStack<Integer> stack = new MyLinkedListStack<Integer>();
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);

@@ -11,14 +11,14 @@ public class MyQueueTest {
 
 	@Test
 	public void test() {
-		MyQueue<Integer> queue = new MyQueue<Integer>();
+		MyLinkedListQueue<Integer> queue = new MyLinkedListQueue<Integer>();
 		
 		assertEquals(0, queue.size());
 	}
 	
 	@Test
 	public void queueSizeShouldCorrespondWithTheNumberOfElements() {
-		MyQueue<Integer> queue = new MyQueue<Integer>();
+		MyLinkedListQueue<Integer> queue = new MyLinkedListQueue<Integer>();
 		assertEquals(0, queue.size());
 		
 		queue.enqueue(1);
@@ -36,7 +36,7 @@ public class MyQueueTest {
 	
 	@Test
 	public void queueElementsShouldBeInFifoOrder() {
-		MyQueue<Integer> queue = new MyQueue<Integer>();
+		MyLinkedListQueue<Integer> queue = new MyLinkedListQueue<Integer>();
 		queue.enqueue(1);
 		queue.enqueue(2);
 		queue.enqueue(3);
@@ -54,7 +54,7 @@ public class MyQueueTest {
 	
 	@Test
 	public void queueIteratorShouldBeFromStartToFinishOrder() {
-		MyQueue<Integer> queue = new MyQueue<Integer>();
+		MyLinkedListQueue<Integer> queue = new MyLinkedListQueue<Integer>();
 		queue.enqueue(1);
 		queue.enqueue(2);
 		queue.enqueue(3);
