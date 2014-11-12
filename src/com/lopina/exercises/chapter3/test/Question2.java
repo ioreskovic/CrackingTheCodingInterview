@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.lopina.exercises.chapter3.MyLinkedListStackWithMin;
 import com.lopina.exercises.chapter3.MyStack;
 
 public class Question2 {

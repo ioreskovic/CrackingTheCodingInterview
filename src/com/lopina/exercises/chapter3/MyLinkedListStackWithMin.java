@@ -1,7 +1,5 @@
-package com.lopina.exercises.chapter3.test;
+package com.lopina.exercises.chapter3;
 
-import com.lopina.exercises.chapter3.MyLinkedListStack;
-import com.lopina.exercises.chapter3.MyStack;
 
 public class MyLinkedListStackWithMin<T extends Comparable<T>> extends MyLinkedListStack<T> {
 	private MyStack<T> minStack = null;
