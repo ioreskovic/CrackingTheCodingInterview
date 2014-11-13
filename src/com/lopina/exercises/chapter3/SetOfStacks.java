@@ -18,8 +18,42 @@ public class SetOfStacks<T> implements MyStack<T> {
 	
 	@Override
 	public Iterator<T> iterator() {
-		// TODO
-		return null;
+		final List<Iterator<T>> iterators = new ArrayList<Iterator<T>>();
+		
+		for (int i = stacks.size() - 1; i >= 0; i--) {
+			iterators.add(stacks.get(i).iterator());
+		}
+		
+		return new Iterator<T>() {
+			int currentIteratorIndex = 0;
+			
+			@Override
+			public boolean hasNext() {
+				if (currentIteratorIndex >= iterators.size()) {
+					return false;
+				}
+				
+				Iterator<T> currentIterator = iterators.get(currentIteratorIndex);
+				
+				if (currentIterator.hasNext()) {
+					return true;
+				} else {
+					currentIteratorIndex++;
+					
+					if (currentIteratorIndex >= iterators.size()) {
+						return false;
+					}
+					
+					currentIterator = iterators.get(currentIteratorIndex);
+					return currentIterator.hasNext();
+				}
+			}
+
+			@Override
+			public T next() {
+				return iterators.get(currentIteratorIndex).next();
+			}
+		};
 	}
 
 	@Override
