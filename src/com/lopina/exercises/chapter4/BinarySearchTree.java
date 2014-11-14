@@ -1,50 +1,50 @@
 package com.lopina.exercises.chapter4;
 
-public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
-	private BSTNode<T> root;
+public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
+	private BSTNode<Key, Value> root;
 	
-	static class BSTNode<T extends Comparable<T>> extends Node<T> {
+	static class BSTNode<Key extends Comparable<Key>, Value> extends Node<Key, Value> {
 
 		private int subtreeSize;
-		private BSTNode<T> left;
-		private BSTNode<T> right;
+		private BSTNode<Key, Value> left;
+		private BSTNode<Key, Value> right;
 		
-		public BSTNode(T data, int subtreeSize) {
-			super(data);
+		public BSTNode(Key key, Value value, int subtreeSize) {
+			super(key, value);
 			this.subtreeSize = subtreeSize;
 		}
 
 		@Override
-		public BSTNode<T> getLeft() {
+		public BSTNode<Key, Value> getLeft() {
 			return this.left;
 		}
 
 
 		@Override
-		public BSTNode<T> getRight() {
+		public BSTNode<Key, Value> getRight() {
 			return this.right;
 		}
 		
 	}
 	
 	@Override
-	public void add(T value) {
-		root = addToSubTree(root, value);
+	public void add(Key key, Value value) {
+		root = addToSubTree(root, key, value);
 	}
 
-	private BSTNode<T> addToSubTree(BSTNode<T> node, T value) {
+	private BSTNode<Key, Value> addToSubTree(BSTNode<Key, Value> node, Key key, Value value) {
 		if (node == null) {
-			return new BSTNode<T>(value, 1);
+			return new BSTNode<Key, Value>(key, value, 1);
 		}
 		
-		int cmp = value.compareTo(node.data);
+		int cmp = key.compareTo(node.key);
 		
 		if (cmp < 0) {
-			node.left = addToSubTree(node.left, value);
+			node.left = addToSubTree(node.left, key, value);
 		} else if (cmp > 0) {
-			node.right = addToSubTree(node.right, value);
+			node.right = addToSubTree(node.right, key, value);
 		} else {
-			node.data = value;
+			node.value = value;
 		}
 		
 		node.subtreeSize = 1 + subtreeSize(node.left) + subtreeSize(node.right);
@@ -53,21 +53,21 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 	}
 
 	@Override
-	public void delete(T value) {
-		root = deleteInSubtree(root, value);
+	public void delete(Key key) {
+		root = deleteInSubtree(root, key);
 	}
 	
-	private BSTNode<T> deleteInSubtree(BSTNode<T> node, T value) {
+	private BSTNode<Key, Value> deleteInSubtree(BSTNode<Key, Value> node, Key key) {
 		if (node == null) {
 			return null;
 		}
 		
-		int cmp = value.compareTo(node.data);
+		int cmp = key.compareTo(node.key);
 		
 		if (cmp < 0) {
-			node.left = deleteInSubtree(node.left, value);
+			node.left = deleteInSubtree(node.left, key);
 		} else if (cmp > 0) {
-			node.right = deleteInSubtree(node.right, value);
+			node.right = deleteInSubtree(node.right, key);
 		} else {
 			if (node.right == null) {
 				return node.left;
@@ -77,10 +77,10 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 				return node.right;
 			}
 			
-			BSTNode<T> temp = node;
+			BSTNode<Key, Value> temp = node;
 			
-			node = findMinInSubtree(node.right);
-			node.right = deleteMinInSubtree(node.right);
+			node = findMinInSubtree(temp.right);
+			node.right = deleteMinInSubtree(temp.right);
 			node.left = temp.left;
 		}
 		
@@ -89,7 +89,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 		return node;
 	}
 
-	private BSTNode<T> findMinInSubtree(BSTNode<T> node) {
+	private BSTNode<Key, Value> findMinInSubtree(BSTNode<Key, Value> node) {
 		if (node.left == null) {
 			return node;
 		}
@@ -97,7 +97,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 		return findMinInSubtree(node.left);
 	}
 
-	private BSTNode<T> deleteMinInSubtree(BSTNode<T> node) {
+	private BSTNode<Key, Value> deleteMinInSubtree(BSTNode<Key, Value> node) {
 		if (node.left == null) {
 			return node.right;
 		}
@@ -109,37 +109,37 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 	}
 
 	@Override
-	public T get(T value) {
-		BSTNode<T> node = find(value);
+	public Value get(Key key) {
+		BSTNode<Key, Value> node = find(key);
 		
 		if (node == null) {
 			return null;
 		} else {
-			return node.data;
+			return node.value;
 		}
 	}
 
 	@Override
-	public boolean contains(T value) {
-		return find(value) != null;
+	public boolean contains(Key key) {
+		return find(key) != null;
 	}
 
 	@Override
-	protected BSTNode<T> find(T value) {
-		return findInSubtree(root, value);
+	protected BSTNode<Key, Value> find(Key key) {
+		return findInSubtree(root, key);
 	}
 
-	private BSTNode<T> findInSubtree(BSTNode<T> node, T value) {
+	private BSTNode<Key, Value> findInSubtree(BSTNode<Key, Value> node, Key key) {
 		if (node == null) {
 			return null;
 		}
 		
-		int cmp = value.compareTo(node.data);
+		int cmp = key.compareTo(node.key);
 		
 		if (cmp < 0) {
-			return findInSubtree(node.getLeft(), value);
+			return findInSubtree(node.getLeft(), key);
 		} else if (cmp > 0) {
-			return findInSubtree(node.getRight(), value);
+			return findInSubtree(node.getRight(), key);
 		} else {
 			return node;
 		}
@@ -155,7 +155,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 		return subtreeSize(this.root);
 	}
 
-	private int subtreeSize(BSTNode<T> node) {
+	private int subtreeSize(BSTNode<Key, Value> node) {
 		if (node == null) {
 			return 0;
 		} else {
@@ -164,7 +164,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends Tree<T> {
 	}
 
 	@Override
-	protected BSTNode<T> getRoot() {
+	protected BSTNode<Key, Value> getRoot() {
 		return this.root;
 	}
 
