@@ -23,7 +23,8 @@ public class TrieTest {
 		System.out.println(trie.keys());
 		System.out.println(trie.keysWithPrefix("s"));
 		System.out.println(trie.keysThatMatch(".he.l."));
-		System.out.println(trie.keysThatMatch("......*"));
+		System.out.println(trie.keysThatMatch("......:"));
+		System.out.println(trie.keysThatMatch("s.el.."));
 	}
 
 }

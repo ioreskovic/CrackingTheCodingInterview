@@ -139,8 +139,6 @@ public class Trie<Value> {
 				collect(node.next[ch], prefix, pattern, results);
 				prefix.deleteCharAt(prefix.length() - 1);
 			}
-		} else if (c == '*') {
-			collect(node, new StringBuilder(prefix), results);
 		} else {
 			prefix.append(c);
 			collect(node.next[c], prefix, pattern, results);
