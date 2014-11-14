@@ -208,6 +208,7 @@ public abstract class Tree<Key extends Comparable<Key>, Value> implements Symbol
 		levelFoldTree(node.getLeft(), level + 1, levels);
 		levelFoldTree(node.getRight(), level + 1, levels);
 	}
+	
 	private LinkedList<Node<Key, Value>> getLevelList(int level, List<LinkedList<Node<Key, Value>>> levels) {
 		if (level >= levels.size()) {
 			levels.add(new LinkedList<Tree.Node<Key,Value>>());
@@ -215,4 +216,37 @@ public abstract class Tree<Key extends Comparable<Key>, Value> implements Symbol
 		
 		return levels.get(level);
 	}
+	
+	public boolean isBinarySearchTree() {
+		return isBinarySearchTree(getRoot());
+	}
+	
+	private boolean isBinarySearchTree(Node<Key, Value> node) {
+		if (node == null) {
+			return true;
+		}
+		
+		if (!isLeftChildSmaller(node.getLeft(), node) || !isRightChildBigger(node.getRight(), node)) {
+			return false;
+		}
+		
+		return isBinarySearchTree(node.getLeft()) && isBinarySearchTree(node.getRight());
+	}
+	
+	private boolean isLeftChildSmaller(Node<Key, Value> leftChild, Node<Key, Value> parent) {
+		if (leftChild == null) {
+			return true;
+		}
+		
+		return parent.key.compareTo(leftChild.key) > 0;
+	}
+	
+	private boolean isRightChildBigger(Node<Key, Value> rightChild, Node<Key, Value> parent) {
+		if (rightChild == null) {
+			return true;
+		}
+		
+		return parent.key.compareTo(rightChild.key) < 0;
+	}
+	
 }
