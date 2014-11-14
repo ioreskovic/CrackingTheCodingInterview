@@ -1,11 +1,14 @@
 package com.lopina.exercises.chapter4;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Tree<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value>{
-	static abstract class Node<Key, Value> {
+	public static abstract class Node<Key, Value> {
 		Key key;
 		Value value;
 		
@@ -16,6 +19,11 @@ public abstract class Tree<Key extends Comparable<Key>, Value> implements Symbol
 		
 		public abstract Node<Key, Value> getLeft();
 		public abstract Node<Key, Value> getRight();
+		
+		@Override
+		public String toString() {
+			return "[" + key + "=" + value + "]";
+		}
 	}
 	
 	public abstract void add(Key key, Value value);
@@ -181,4 +189,30 @@ public abstract class Tree<Key extends Comparable<Key>, Value> implements Symbol
 	}
 	
 	public abstract boolean isBalanced();
+	
+	public List<LinkedList<Node<Key, Value>>> getDeleveledTree() {
+		List<LinkedList<Node<Key, Value>>> levels = new ArrayList<LinkedList<Node<Key,Value>>>();
+		
+		levelFoldTree(getRoot(), 0, levels);
+		
+		return levels;
+	}
+	private void levelFoldTree(Node<Key, Value> node, int level, List<LinkedList<Node<Key, Value>>> levels) {
+		if (node == null) {
+			return;
+		}
+		
+		LinkedList<Node<Key, Value>> levelList = getLevelList(level, levels);
+		
+		levelList.add(node);
+		levelFoldTree(node.getLeft(), level + 1, levels);
+		levelFoldTree(node.getRight(), level + 1, levels);
+	}
+	private LinkedList<Node<Key, Value>> getLevelList(int level, List<LinkedList<Node<Key, Value>>> levels) {
+		if (level >= levels.size()) {
+			levels.add(new LinkedList<Tree.Node<Key,Value>>());
+		}
+		
+		return levels.get(level);
+	}
 }
