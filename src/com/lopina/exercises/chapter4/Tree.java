@@ -179,4 +179,6 @@ public abstract class Tree<Key extends Comparable<Key>, Value> implements Symbol
 	public Iterator<SymbolTableEntry<Key, Value>> iterator() {
 		return getPreOrderIterator();
 	}
+	
+	public abstract boolean isBalanced();
 }

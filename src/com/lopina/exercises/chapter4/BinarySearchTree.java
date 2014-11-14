@@ -167,5 +167,48 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 	protected BSTNode<Key, Value> getRoot() {
 		return this.root;
 	}
+	
+	/**
+	 * Time complexity is O(n)</br>
+	 * Space complexity is O(treeHeight)</br>
+	 */
+	@Override
+	public boolean isBalanced() {
+		return isBalanced(this.root);
+	}
 
+	private boolean isBalanced(BSTNode<Key, Value> node) {
+		if (getHeight(node) == -1) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private int getHeight(BSTNode<Key, Value> node) {
+		if (node == null) {
+			return 0;
+		} 
+		
+		int leftHeight = getHeight(node.left);
+		
+		if (leftHeight == -1) {
+			return -1;
+		}
+		
+		int rightHeight = getHeight(node.right);
+		
+		if (rightHeight == -1) {
+			return -1;
+		}
+		
+		int heightDiff = leftHeight - rightHeight;
+		
+		if (Math.abs(heightDiff) > 1) {
+			return -1;
+		} else {
+			return 1 + Math.max(leftHeight, rightHeight);
+		}
+	}
+	
 }
