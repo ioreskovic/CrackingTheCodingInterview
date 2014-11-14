@@ -3,6 +3,24 @@ package com.lopina.exercises.chapter4;
 public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
 	private BSTNode<Key, Value> root;
 	
+	public BinarySearchTree(SymbolTableEntry<Key, Value> ... entries) {
+		populateFromSorted(entries, 0, entries.length - 1);
+	}
+	
+	private void populateFromSorted(SymbolTableEntry<Key, Value>[] entries, int from, int to) {
+		System.out.println("populate(" + from + ", " + to + ")");
+		if (from > to) {
+			return;
+		}
+		
+		int mid = (to + from + 1) / 2;
+		
+		add(entries[mid].getKey(), entries[mid].getValue());
+		
+		populateFromSorted(entries, from, mid - 1);
+		populateFromSorted(entries, mid + 1, to);
+	}
+
 	static class BSTNode<Key extends Comparable<Key>, Value> extends Node<Key, Value> {
 
 		private int subtreeSize;
