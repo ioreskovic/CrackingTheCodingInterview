@@ -1,7 +1,17 @@
 package com.lopina.exercises.chapter4;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+
+import com.sun.scenario.effect.Flood;
+
 public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
 	private BSTNode<Key, Value> root;
+	
+	public BinarySearchTree() {
+	}
 	
 	public BinarySearchTree(SymbolTableEntry<Key, Value> ... entries) {
 		populateFromSorted(entries, 0, entries.length - 1);
@@ -107,12 +117,202 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		return node;
 	}
 
+	public SymbolTableEntry<Key, Value> min(Key key) {
+		BSTNode<Key, Value> node = findMinInSubtree(root);
+		
+		if (node == null) {
+			return null;
+		}
+		
+		return new SymbolTableEntry<Key, Value>(node.key, node.value);
+	}
+	
 	private BSTNode<Key, Value> findMinInSubtree(BSTNode<Key, Value> node) {
 		if (node.left == null) {
 			return node;
 		}
 		
 		return findMinInSubtree(node.left);
+	}
+	
+	public SymbolTableEntry<Key, Value> max(Key key) {
+		BSTNode<Key, Value> node = findMaxInSubtree(root);
+		
+		if (node == null) {
+			return null;
+		}
+		
+		return new SymbolTableEntry<Key, Value>(node.key, node.value);
+	}
+	
+	private BSTNode<Key, Value> findMaxInSubtree(BSTNode<Key, Value> node) {
+		if (node.right == null) {
+			return node;
+		}
+		
+		return findMaxInSubtree(node.right);
+	}
+	
+	public int rank(Key key) {
+		return rank(root, key);
+	}
+	
+	private int rank(BSTNode<Key, Value> node, Key key) {
+		if (node == null) {
+			return 0;
+		}
+		
+		int cmp = key.compareTo(node.key);
+		
+		if (cmp < 0) {
+			return rank(node.left, key);
+		} else if (cmp > 0) {
+			return 1 + subtreeSize(node.left) + rank(node.right, key);
+		} else {
+			return subtreeSize(node.left);
+		}
+	}
+	
+	public SymbolTableEntry<Key, Value> floor(Key key) {
+		BSTNode<Key, Value> node = findFloorInSubtree(root, key);
+		
+		if (node == null) {
+			return null;
+		}
+		
+		return new SymbolTableEntry<Key, Value>(node.key, node.value);
+	}
+	
+	private BSTNode<Key, Value> findFloorInSubtree(BSTNode<Key, Value> node, Key key) {
+		if (node == null) {
+			return null;
+		}
+		
+		int cmp = key.compareTo(node.key);
+		
+		if (cmp == 0) {
+			return node;
+		} else if (cmp < 0) {
+			return findFloorInSubtree(node.left, key);
+		} else {
+			BSTNode<Key, Value> tmp = findFloorInSubtree(node.right, key);
+			if (tmp != null) {
+				return tmp;
+			} else {
+				return node;
+			}
+		}
+	}
+	
+	public SymbolTableEntry<Key, Value> ceil(Key key) {
+		BSTNode<Key, Value> node = findCeilingInSubtree(root, key);
+		
+		if (node == null) {
+			return null;
+		}
+		
+		return new SymbolTableEntry<Key, Value>(node.key, node.value);
+	}
+	
+	private BSTNode<Key, Value> findCeilingInSubtree(BSTNode<Key, Value> node, Key key) {
+		if (node == null) {
+			return null;
+		}
+		
+		int cmp = key.compareTo(node.key);
+		
+		if (cmp == 0) {
+			return node;
+		} else if (cmp > 0) {
+			return findCeilingInSubtree(node.right, key);
+		} else {
+			BSTNode<Key, Value> tmp = findCeilingInSubtree(node.left, key);
+			if (tmp != null) {
+				return tmp;
+			} else {
+				return node;
+			}
+		}
+	}
+	
+	public SymbolTableEntry<Key, Value> kthOrderStatistic(int k) {
+		BSTNode<Key, Value> kthNode = selectKthInSubtree(root, k);
+		
+		if (kthNode == null) {
+			return null;
+		}
+		
+		return new SymbolTableEntry<Key, Value>(kthNode.key, kthNode.value);
+	}
+	
+	private BSTNode<Key, Value> selectKthInSubtree(BSTNode<Key, Value> node, int k) {
+		if (node == null) {
+			return null;
+		}
+		
+		int lessThanCount = subtreeSize(node.left);
+		
+		if (lessThanCount > k) {
+			return selectKthInSubtree(node.left, k);
+		} else if (lessThanCount < k) {
+			return selectKthInSubtree(node.right, k - lessThanCount - 1);
+		} else {
+			return node;
+		}
+	}
+	
+	public Iterable<Key> keys(Key low, Key high) {
+		Deque<Key> queue = new ArrayDeque<Key>();
+		
+		keys(root, queue, low, high);
+		
+		return queue;
+	}
+
+	private void keys(BSTNode<Key, Value> node, Deque<Key> queue, Key low, Key high) {
+		if (node == null) {
+			return;
+		}
+		
+		int cmpLow = low.compareTo(node.key);
+		int cmpHigh = high.compareTo(node.key);
+		
+		if (cmpLow < 0) {
+			keys(node.left, queue, low, high);
+		}
+		
+		if (cmpLow <= 0 && cmpHigh >= 0) {
+			queue.offerLast(node.key);
+		}
+		
+		if (cmpHigh > 0) {
+			keys(node.right, queue, low, high);
+		}
+	}
+	
+	public Iterable<Value> select(Key low, Key high) {
+		Deque<Value> queue = new ArrayDeque<Value>();
+		
+		select(root, queue, low, high);
+		
+		return queue;
+	}
+
+	private void select(BSTNode<Key, Value> node, Deque<Value> queue, Key low, Key high) {
+		int cmpLow = low.compareTo(node.key);
+		int cmpHigh = high.compareTo(node.key);
+		
+		if (cmpLow < 0) {
+			select(node.left, queue, low, high);
+		}
+		
+		if (cmpLow <= 0 && cmpHigh >= 0) {
+			queue.offerLast(node.value);
+		}
+		
+		if (cmpHigh > 0) {
+			select(node.right, queue, low, high);
+		}
 	}
 
 	private BSTNode<Key, Value> deleteMinInSubtree(BSTNode<Key, Value> node) {
