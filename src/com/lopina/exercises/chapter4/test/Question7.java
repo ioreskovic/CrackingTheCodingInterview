@@ -14,7 +14,7 @@ import com.lopina.exercises.chapter4.SymbolTable.SymbolTableEntry;
 
 public class Question7 {
 
-private BinarySearchTree<Integer, Integer> bst;
+	private BinarySearchTree<Integer, Integer> bst;
 	
 	@SuppressWarnings("unchecked")
 	@Before

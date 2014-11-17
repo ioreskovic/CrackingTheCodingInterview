@@ -1,7 +1,13 @@
 package com.lopina.exercises.chapter4;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.Iterator;
+import java.util.List;
+
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
 	private BSTNode<Key, Value> root;
@@ -13,6 +19,24 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		populateFromSorted(entries, 0, entries.length - 1);
 	}
 	
+	public BinarySearchTree(boolean x, SymbolTableEntry<Key, Value> ... entries) {
+		this.root = populateFromSortedNative(entries, 0, entries.length - 1);
+	}
+	
+	private BSTNode<Key, Value> populateFromSortedNative(SymbolTableEntry<Key, Value>[] entries, int from, int to) {
+		if (from > to) {
+			return null;
+		}
+		
+		int mid = (to + from + 1) / 2;
+		BSTNode<Key, Value> node = new BSTNode<Key, Value>(entries[mid].getKey(), entries[mid].getValue(), 1);
+		
+		node.left = populateFromSortedNative(entries, from, mid - 1);
+		node.right = populateFromSortedNative(entries, mid + 1, to);	
+		
+		return node;
+	}
+
 	private void populateFromSorted(SymbolTableEntry<Key, Value>[] entries, int from, int to) {
 		System.out.println("populate(" + from + ", " + to + ")");
 		if (from > to) {
@@ -534,4 +558,82 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		}
 	}
 	
+	public boolean isSubtree(BinarySearchTree<Key, Value> other) {
+		if (other == null || other.root == null) {
+			return true;
+		}
+		
+		BSTNode<Key, Value> thisSubRoot = findInSubtree(this.root, other.root.key);
+		if (thisSubRoot == null) {
+			return false;
+		}
+		
+		return isSubtree(thisSubRoot, other.root);
+	}
+
+	private boolean isSubtree(BSTNode<Key, Value> thisNode, BSTNode<Key, Value> otherNode) {
+		if (thisNode == null && otherNode == null) {
+			return true;
+		}
+		
+		if (thisNode != null && otherNode != null) {
+			if (!thisNode.key.equals(otherNode.key)) {
+				return false;
+			}
+			
+			if (!thisNode.value.equals(otherNode.value)) {
+				return false;
+			}
+			
+			return isSubtree(thisNode.left, otherNode.left) &&
+				   isSubtree(thisNode.right, otherNode.right);
+			
+		} else {
+			return false;
+		}
+	}
+	
+	public static <T extends Comparable<T>> void sumPaths(BinarySearchTree<T, Integer> tree, int sumValue) {
+		int depth = depth(tree.root);
+		Integer[] path = new Integer[depth];
+		collectSums(tree.root, sumValue, path, 0);
+	}
+	
+	private static <T extends Comparable<T>> void collectSums(BSTNode<T, Integer> node, int sumValue, Integer[] path, int level) {
+		if (node == null) {
+			return;
+		}
+		
+		path[level] = node.value;
+		
+		int t = 0;
+		
+		for (int i = level; i >= 0; i--) {
+			t += path[i];
+			
+			if (t == sumValue) {
+				print(path, i, level);
+			}
+		}
+		
+		collectSums(node.left, sumValue, path, level + 1);
+		collectSums(node.right, sumValue, path, level + 1);
+		
+		path[level] = null;
+	}
+	
+	private static void print(Integer[] path, int start, int end) {
+		for (int i = start; i <= end; i++) {
+			System.out.print(path[i] + "-");
+		}
+		System.out.println();
+	}
+
+	private static <Key extends Comparable<Key>, Value> int depth(BSTNode<Key, Value> node) {
+		if (node == null) {
+			return 0;
+		} else {
+			return 1 + Math.max(depth(node.left), depth(node.right));
+		}
+	}
 }
