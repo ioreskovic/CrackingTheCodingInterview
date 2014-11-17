@@ -3,10 +3,6 @@ package com.lopina.exercises.chapter4;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
-
-import com.sun.scenario.effect.Flood;
-
 public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
 	private BSTNode<Key, Value> root;
 	
@@ -34,6 +30,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 	static class BSTNode<Key extends Comparable<Key>, Value> extends Node<Key, Value> {
 
 		private int subtreeSize;
+		private BSTNode<Key, Value> parent;
 		private BSTNode<Key, Value> left;
 		private BSTNode<Key, Value> right;
 		
@@ -69,8 +66,10 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		
 		if (cmp < 0) {
 			node.left = addToSubTree(node.left, key, value);
+			setParent(node.left, node);
 		} else if (cmp > 0) {
 			node.right = addToSubTree(node.right, key, value);
+			setParent(node.right, node);
 		} else {
 			node.value = value;
 		}
@@ -78,6 +77,10 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		node.subtreeSize = 1 + subtreeSize(node.left) + subtreeSize(node.right);
 		
 		return node;
+	}
+
+	private void setParent(BSTNode<Key, Value> child, BSTNode<Key, Value> parent) {
+		child.parent = parent;
 	}
 
 	@Override
@@ -94,8 +97,10 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		
 		if (cmp < 0) {
 			node.left = deleteInSubtree(node.left, key);
+			setParent(node.left, node);
 		} else if (cmp > 0) {
 			node.right = deleteInSubtree(node.right, key);
+			setParent(node.right, node);
 		} else {
 			if (node.right == null) {
 				return node.left;
@@ -117,6 +122,68 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		return node;
 	}
 
+	public Value prevValue(Key key) {
+		BSTNode<Key, Value> prevNode = prev(root, key);
+		
+		if (prevNode == null) {
+			return null;
+		}
+		
+		return prevNode.value;
+	}
+	
+	public Value nextValue(Key key) {
+		BSTNode<Key, Value> nextNode = next(root, key);
+		
+		if (nextNode == null) {
+			return null;
+		}
+		
+		return nextNode.value;
+	}
+	
+	private BSTNode<Key, Value> prev(BSTNode<Key, Value> node, Key key) {
+		if (node == null) {
+			return null;
+		}
+		
+		int cmp = key.compareTo(node.key);
+		
+		if (cmp == 0) {
+			return findMaxInSubtree(node.left);
+		} else if (cmp < 0) {
+			return prev(node.left, key);
+		} else {
+			BSTNode<Key, Value> tmp = prev(node.right, key);
+			if (tmp == null) {
+				return node;
+			} else {
+				return tmp;
+			}
+		}
+	}
+	
+	private BSTNode<Key, Value> next(BSTNode<Key, Value> node, Key key) {
+		if (node == null) {
+			return null;
+		}
+		
+		int cmp = key.compareTo(node.key);
+		
+		if (cmp == 0) {
+			return findMinInSubtree(node.right);
+		} else if (cmp > 0) {
+			return next(node.right, key);
+		} else {
+			BSTNode<Key, Value> tmp = next(node.left, key);
+			if (tmp == null) {
+				return node;
+			} else {
+				return tmp;
+			}
+		}
+	}
+	
 	public SymbolTableEntry<Key, Value> min(Key key) {
 		BSTNode<Key, Value> node = findMinInSubtree(root);
 		
@@ -128,6 +195,10 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 	}
 	
 	private BSTNode<Key, Value> findMinInSubtree(BSTNode<Key, Value> node) {
+		if (node == null) {
+			return null;
+		}
+		
 		if (node.left == null) {
 			return node;
 		}
@@ -146,6 +217,10 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 	}
 	
 	private BSTNode<Key, Value> findMaxInSubtree(BSTNode<Key, Value> node) {
+		if (node == null) {
+			return null;
+		}
+		
 		if (node.right == null) {
 			return node;
 		}
