@@ -400,6 +400,36 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> extends Tree<K
 		
 		return node;
 	}
+	
+	public Key getFirstCommonAncestorKey(Key key1, Key key2) {
+		return fca(root, key1, key2);
+	}
+
+	private Key fca(BSTNode<Key, Value> node, Key key1, Key key2) {
+		if (node == null) {
+			return null;
+		}
+		
+		Key low = key1.compareTo(key2) < 0 ? key1 : key2;
+		Key high = key1.compareTo(key2) >= 0 ? key1 : key2;
+		
+		int cmpLow = low.compareTo(node.key);
+		int cmpHigh = high.compareTo(node.key);
+		
+		if (cmpLow <= 0 && cmpHigh >= 0) {
+			return node.key;
+		}
+		
+		if (cmpLow < 0 && cmpHigh < 0) {
+			return fca(node.left, key1, key2);
+		}
+		
+		if (cmpLow > 0 && cmpHigh > 0) {
+			return fca(node.right, key1, key2);
+		}
+		
+		return null;
+	}
 
 	@Override
 	public Value get(Key key) {
