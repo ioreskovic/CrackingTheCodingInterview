@@ -6,7 +6,7 @@ public abstract class Paths {
 	protected Graph graph;
 	protected int sourceVertexIndex;
 	
-	protected Paths(Graph graph, int sourceVertexIndex) {
+	public Paths(Graph graph, int sourceVertexIndex) {
 		this.graph = graph;
 		this.sourceVertexIndex = sourceVertexIndex;
 	}

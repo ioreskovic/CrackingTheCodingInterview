@@ -36,10 +36,10 @@ public class DFSPaths extends Paths {
 		Deque<Integer> path = new ArrayDeque<Integer>();
 		
 		for (int vertex = vertexIndex; vertex != sourceVertexIndex; vertex = edgeTo[vertex]) {
-			path.offerLast(vertex);
+			path.offerFirst(vertex);
 		}
 		
-		path.offerLast(this.sourceVertexIndex);
+		path.offerFirst(this.sourceVertexIndex);
 		
 		return path;
 	}
