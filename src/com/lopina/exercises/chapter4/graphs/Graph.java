@@ -1,12 +1,16 @@
 package com.lopina.exercises.chapter4.graphs;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import edu.princeton.cs.introcs.In;
 
 public class Graph {
 	private final int V;
 	private int E;
-	private Set<Integer>[] adj;
+	private List<Integer>[] adj;
 	
 	@SuppressWarnings("unchecked")
 	public Graph(int V) {
@@ -16,11 +20,25 @@ public class Graph {
 		
 		this.V = V;
 		this.E = 0;
-		this.adj = (HashSet<Integer>[])new HashSet[V];
+		this.adj = (ArrayList<Integer>[])new ArrayList[V];
 		
 		for (int v = 0; v < V; v++) {
-			adj[v] = new HashSet<Integer>();
+			adj[v] = new ArrayList<Integer>();
 		}
+	}
+	
+	public Graph(In in) {
+		this(in.readInt());
+		int E = in.readInt();
+		if (E < 0) {
+			throw new IllegalArgumentException("Number of edges must be nonnegative");
+		}
+		
+		for (int i = 0; i < E; i++) {
+            int v = in.readInt();
+            int w = in.readInt();
+            addEdge(v, w);
+        }
 	}
 	
 	public int V() {
@@ -67,4 +85,55 @@ public class Graph {
 		return sb.toString();
 	}
 	
+	public static int degree(Graph G, int v) {
+		int degree = 0;
+		
+		for (int w : G.adj(v)) {
+			degree++;
+		}
+		
+		return degree;
+	}
+	
+	public int degree(int v) {
+		return degree(this, v);
+	}
+	
+	public static int maxDegree(Graph G) {
+		int max = 0;
+		
+		for (int v = 0; v < G.V(); v++) {
+			if (degree(G, v) > max) {
+				max = degree(G, v);
+			}
+		}
+		
+		return max;
+	}
+	
+	public int maxDegree() {
+		return maxDegree(this);
+	}
+	
+	public static double averageDegree(Graph G) {
+		return 2.0 * G.E() / G.V();
+	}
+	
+	public double averageDegree() {
+		return averageDegree(this);
+	}
+	
+	public static int numberOfSelfLoops(Graph G) {
+		int count = 0;
+		
+		for (int v = 0; v < G.V(); v++) {
+			for (int w : G.adj(v)) {
+				if (v == w) {
+					count++;
+				}
+			}
+		}
+		
+		return count / 2;
+	}
 }
