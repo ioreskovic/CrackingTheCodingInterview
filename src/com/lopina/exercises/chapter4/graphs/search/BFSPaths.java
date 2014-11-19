@@ -76,4 +76,18 @@ public class BFSPaths extends Paths {
 		}
 	}
 	
+	public int getMaxDistanceVertex() {
+		int maxDistance = Integer.MIN_VALUE;
+		int maxDistanceVertexIndex = -1;
+		
+		for (int i = 0; i < distTo.length; i++) {
+			if (distTo[i] > maxDistance) {
+				maxDistance = distTo[i];
+				maxDistanceVertexIndex = i;
+			}
+		}
+		
+		return maxDistanceVertexIndex;
+	}
+	
 }

@@ -61,7 +61,7 @@ public class Graph {
 		adj[w].add(v);
 	}
 	
-	public Iterable<Integer> adj(int v) {
+	public List<Integer> adj(int v) {
 		validateVertex(v);
 		return adj[v];
 	}
