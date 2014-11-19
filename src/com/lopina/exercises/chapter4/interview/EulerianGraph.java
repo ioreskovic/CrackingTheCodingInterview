@@ -114,6 +114,10 @@ public class EulerianGraph {
 		edgesMap.put(edge, count);
 	}
 
+	/**
+	 * See: <a href="http://iampandiyan.blogspot.in/2013/10/c-program-to-find-euler-path-or-euler.html">http://iampandiyan.blogspot.in/2013/10/c-program-to-find-euler-path-or-euler.html</a>
+	 * @param graph
+	 */
 	private void findEulerianCycle(Graph graph) {
 		Deque<Integer> stack = new ArrayDeque<Integer>();
 		stack.offerFirst(0);
