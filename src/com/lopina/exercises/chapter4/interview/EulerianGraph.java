@@ -68,9 +68,9 @@ public class EulerianGraph {
 	
 	private Graph graph;
 	private Deque<Integer> eulerianCycle;
-	private int[] edges;
 	private Map<Edge, Integer> edgesMap;
-	private Deque<Edge> cycle = new ArrayDeque<EulerianGraph.Edge>();
+	private Deque<Edge> cycle = new ArrayDeque<Edge>();
+	private Iterator<Integer>[] adj;
 	
 	
 	public EulerianGraph(Graph graph) {
@@ -86,20 +86,27 @@ public class EulerianGraph {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private boolean hasEulerianCycle(Graph graph) {
-		edges = new int[graph.V()];
-		edgesMap = new HashMap<EulerianGraph.Edge, Integer>();
+		edgesMap = new HashMap<Edge, Integer>();
+		adj = (Iterator<Integer>[]) new Iterator[graph.V()];
 		
 		for (int v = 0; v < graph.V(); v++) {
+			adj[v] = graph.adj(v).iterator();
 			if (graph.adj(v).size() % 2 == 1) {
 				eulerianCycle = null;
 				return false;
 			}
 			
 			for (int w : graph.adj(v)) {
-				setEdgeCount(new Edge(v, w), 1);
+				addEdgeCount(new Edge(v, w));
 			}
 			
+		}
+		
+		for (Edge e : edgesMap.keySet()) {
+			int currentEdgeCount = this.edgesMap.get(e);
+			edgesMap.put(e, currentEdgeCount / 2);
 		}
 		
 		return true;
@@ -119,31 +126,69 @@ public class EulerianGraph {
 	 * @param graph
 	 */
 	private void findEulerianCycle(Graph graph) {
+		eulerianCycle = new ArrayDeque<Integer>();
 		Deque<Integer> stack = new ArrayDeque<Integer>();
 		stack.offerFirst(0);
 
-		int x = -1;
-		
 		while (!stack.isEmpty()) {
-			int v = stack.pollFirst();
-			cycle.offerFirst(new Edge(x, v));
+			int v = stack.peek();
+			System.out.println("Examining top of temp stack: " + v);
 			
-			x = v;
-			
-			Edge edge = null;
-			for (int w : graph.adj(v)) {
-				edge = new Edge(v, w);
+			while (adj[v].hasNext()) {
+				int w = adj[v].next();
+				System.out.println("\tNext possible vertex is: " + w);
 				
-				if (edgesMap.getOrDefault(edge, 0) > 0) {
+				Edge edge = new Edge(v, w);
+				
+				if (edgeAvailable(edge)) {
+					System.out.println("\t\tEdge from " + v + " to " + w + " is free");
 					stack.offerFirst(w);
-					setEdgeCount(edge, edgesMap.get(edge) - 1);
+					decrementEdgeCount(edge);
+					v = w;
+					continue;
+				} else {
+					System.out.println("\t\tEdge from " + v + " to " + w + " is not free");
+//					break;
+				}
+			}
+			
+			System.out.println();
+			System.out.println("Trying to find the place to re-loop");
+			
+			while (!stack.isEmpty()) {
+				int x = stack.pop();
+				eulerianCycle.push(x);
+				System.out.println("\tMoving " + x + " to cycle stack");
+				
+				if (stack.isEmpty()) {
+					System.out.println("\tCycle done");
+					return;
+				}
+				
+				int k = stack.peek();
+				System.out.println("\tBacktracking from " + k);
+				
+				if (adj[k].hasNext()) {
+					v = k;
+					break;
 				}
 			}
 		}
 	}
 	
-	public Deque<Edge> getEulerianCycle() {
-		return cycle;
+	private boolean edgeAvailable(Edge edge) {
+		int edgeCount = edgesMap.getOrDefault(edge, 0);
+		
+		return edgeCount > 0;
+	}
+
+	private void decrementEdgeCount(Edge edge) {
+		int countSoFar = edgesMap.getOrDefault(edge, 0);
+		setEdgeCount(edge, countSoFar -1);
+	}
+
+	public Deque<Integer> getEulerianCycle() {
+		return eulerianCycle;
 	}
 	
 	public static void main(String[] args) {
