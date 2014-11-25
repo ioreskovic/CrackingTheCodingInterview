@@ -26,6 +26,7 @@ public class Digraph {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Digraph(In in) {
         try {
             this.V = in.readInt();
