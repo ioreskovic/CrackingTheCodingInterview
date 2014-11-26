@@ -55,4 +55,33 @@ public class VertexReachabilityDigraph {
 	public int getReachableVertex() {
 		return reachableVertex;
 	}
+	
+	public static void main(String[] args) {
+		Digraph digraph = new Digraph(10);
+		digraph.addEdge(1, 0);
+		
+		digraph.addEdge(1, 2);
+		digraph.addEdge(2, 1);
+		
+		digraph.addEdge(3, 2);
+		
+		digraph.addEdge(3, 4);
+		digraph.addEdge(4, 5);
+		digraph.addEdge(5, 3);
+		
+		digraph.addEdge(7, 4);
+		
+		digraph.addEdge(7, 6);
+		digraph.addEdge(6, 8);
+		digraph.addEdge(8, 9);
+		digraph.addEdge(9, 7);
+		
+		VertexReachabilityDigraph vrd = new VertexReachabilityDigraph(digraph);
+		
+		if (vrd.hasReachableVertex()) {
+			System.out.println("Found reachable vertex: " + vrd.getReachableVertex());
+		} else {
+			System.out.println("No reachable vertex from all other vertices.");
+		}
+	}
 }
