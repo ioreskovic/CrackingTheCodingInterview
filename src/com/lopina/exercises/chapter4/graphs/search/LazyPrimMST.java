@@ -1,6 +1,7 @@
 package com.lopina.exercises.chapter4.graphs.search;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.PriorityQueue;
 
@@ -19,8 +20,19 @@ public class LazyPrimMST implements MinimalSpanningTree {
 	private PriorityQueue<Edge> pq;
 	
 	public LazyPrimMST(EdgeWeightedGraph graph) {
-		this.mst = new ArrayDeque<Edge>();
 		this.pq = new PriorityQueue<Edge>();
+		
+		lazyPrim(graph);
+	}
+	
+	public LazyPrimMST(EdgeWeightedGraph graph, Comparator<Edge> edgeComparator) {
+		this.pq = new PriorityQueue<Edge>(edgeComparator);
+		
+		lazyPrim(graph);
+	}
+
+	private void lazyPrim(EdgeWeightedGraph graph) {
+		this.mst = new ArrayDeque<Edge>();
 		this.marked = new boolean[graph.V()];
 		
 		for (int v = 0; v < graph.V(); v++) {

@@ -1,6 +1,7 @@
 package com.lopina.exercises.chapter4.graphs.search;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.PriorityQueue;
 
@@ -19,7 +20,15 @@ public class KruskalMST implements MinimalSpanningTree {
 	
 	public KruskalMST(EdgeWeightedGraph graph) {
 		PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
-		
+		kruskal(graph, pq);
+	}
+	
+	public KruskalMST(EdgeWeightedGraph graph, Comparator<Edge> edgeComparator) {
+		PriorityQueue<Edge> pq = new PriorityQueue<Edge>(edgeComparator);
+		kruskal(graph, pq);
+	}
+
+	private void kruskal(EdgeWeightedGraph graph, PriorityQueue<Edge> pq) {
 		for (Edge edge : graph.edges()) {
 			pq.add(edge);
 		}
