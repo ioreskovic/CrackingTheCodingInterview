@@ -1,5 +1,9 @@
 package com.lopina.exercises.chapter4.graphs.search;
 
+import com.lopina.exercises.chapter4.graphs.Edge;
+import com.lopina.exercises.chapter4.graphs.EdgeWeightedGraph;
+import com.lopina.exercises.chapter4.graphs.MinimalSpanningTree;
+
 /**
  * Every MST is a MBST.<br/>
  * Proof by contradiction:</br>
@@ -14,4 +18,14 @@ package com.lopina.exercises.chapter4.graphs.search;
  */
 public class MinimumBottleneckSpanningTree {
 
+	Iterable<Edge> edges;
+	
+	public MinimumBottleneckSpanningTree(EdgeWeightedGraph graph) {
+		MinimalSpanningTree mst = new KruskalMST(graph);
+		edges = mst.edges();
+	}
+	
+	public Iterable<Edge> edges() {
+		return edges;
+	}
 }
