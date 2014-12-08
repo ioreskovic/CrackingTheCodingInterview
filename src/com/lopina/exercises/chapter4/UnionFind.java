@@ -41,8 +41,8 @@ public class UnionFind {
 	public int find(int p) {
 		if (p < 0 || p >= id.length)
 			throw new IndexOutOfBoundsException();
-		while (p != id[p]) {
-			id[p] = id[id[p]]; // path compression by halving
+		while (p != id[p]) { // until you find a local root
+			id[p] = id[id[p]]; // climb up by the tree (path compression by halving)
 			p = id[p];
 		}
 		return p;
@@ -102,6 +102,40 @@ public class UnionFind {
 			rank[i]++;
 		}
 		count--;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < 8; i++) {
+			if (i > 0) {
+				sb.append(" ");
+			}
+			
+			sb.append("[" + rank[i] + ", " + i + ", " + id[i] + "]");
+		}
+		
+		return sb.toString();
+	}
+	
+	public static void main(String[] args) {
+		UnionFind uf = new UnionFind(8);
+		System.out.println(uf.toString());
+		uf.union(3, 4);
+		System.out.println(uf.toString());
+		uf.union(5, 6);
+		System.out.println(uf.toString());
+		uf.union(0, 7);
+		System.out.println(uf.toString());
+		uf.union(1, 2);
+		System.out.println(uf.toString());
+		uf.union(0, 1);
+		System.out.println(uf.toString());
+		uf.union(3, 6);
+		System.out.println(uf.toString());
+		uf.union(2, 6);
+		System.out.println(uf.toString());
 	}
 
 }

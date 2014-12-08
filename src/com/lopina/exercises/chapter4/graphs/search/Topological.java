@@ -3,6 +3,7 @@ package com.lopina.exercises.chapter4.graphs.search;
 import java.util.Deque;
 
 import com.lopina.exercises.chapter4.graphs.Digraph;
+import com.lopina.exercises.chapter4.graphs.EdgeWeightedDigraph;
 
 public class Topological {
 
@@ -15,6 +16,11 @@ public class Topological {
 			DepthFirstOrder dfs = new DepthFirstOrder(digraph);
 			order = dfs.getReversePostorder();
 		}
+	}
+	
+	public Topological(EdgeWeightedDigraph graph) {
+		DepthFirstOrder dfs = new DepthFirstOrder(graph);
+		order = dfs.getReversePostorder();
 	}
 	
 	public Deque<Integer> sort() {

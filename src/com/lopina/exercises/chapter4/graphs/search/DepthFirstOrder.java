@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import com.lopina.exercises.chapter4.graphs.Digraph;
+import com.lopina.exercises.chapter4.graphs.DirectedEdge;
+import com.lopina.exercises.chapter4.graphs.EdgeWeightedDigraph;
 
 public class DepthFirstOrder {
 
@@ -30,6 +32,40 @@ public class DepthFirstOrder {
 				dfs(digraph, v);
 			}
 		}
+	}
+	
+	public DepthFirstOrder(EdgeWeightedDigraph digraph) {
+		int vertices = digraph.V();
+		
+		this.marked = new boolean[vertices];
+		this.pre = new int[vertices];
+		this.post = new int[vertices];
+		
+		this.preorder = new ArrayDeque<Integer>();
+		this.postorder = new ArrayDeque<Integer>();
+		
+		for (int v = 0; v < vertices; v++) {
+			if (!marked[v]) {
+				dfs(digraph, v);
+			}
+		}
+	}
+
+	private void dfs(EdgeWeightedDigraph digraph, int vertex) {
+		marked[vertex] = true;
+		pre[vertex] = preCounter++;
+		preorder.offerLast(vertex);
+		
+		for (DirectedEdge e : digraph.adj(vertex)) {
+			int w = e.to();
+			
+			if (!marked[w]) {
+				dfs(digraph, w);
+			}
+		}
+		
+		postorder.offerLast(vertex);
+		post[vertex] = postCounter++;
 	}
 
 	private void dfs(Digraph digraph, int vertex) {
