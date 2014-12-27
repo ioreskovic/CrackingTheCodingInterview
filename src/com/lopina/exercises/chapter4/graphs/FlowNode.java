@@ -1,41 +1,43 @@
 package com.lopina.exercises.chapter4.graphs;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FlowNode {
 	private final int id;
 	private final String description;
-	private Set<FlowEdge> inEdges;
-	private Set<FlowEdge> outEdges;
+	private Map<FlowNode, FlowEdge> inEdges;
+	private Map<FlowNode, FlowEdge> outEdges;
 	
 	public FlowNode(int id, String description) {
 		super();
 		this.id = id;
 		this.description = description;
 		
-		this.inEdges = new HashSet<FlowEdge>();
-		this.outEdges = new HashSet<FlowEdge>();
+		this.inEdges = new HashMap<FlowNode, FlowEdge>();
+		this.outEdges = new HashMap<FlowNode, FlowEdge>();
 	}
 	
 	public FlowNode(FlowNode other) {
 		this(other.id, other.description);
 		
-		for (FlowEdge inEdge : other.inEdges) {
-			this.inEdges.add(new FlowEdge(inEdge));
+		for (FlowEdge inEdge : other.inEdges.values()) {
+			FlowEdge copyInEdge = new FlowEdge(inEdge);
+			this.inEdges.put(copyInEdge.from(), copyInEdge);
 		}
 		
-		for (FlowEdge outEdge : other.outEdges) {
-			this.outEdges.add(new FlowEdge(outEdge));
+		for (FlowEdge outEdge : other.outEdges.values()) {
+			FlowEdge copyOutEdge = new FlowEdge(outEdge);
+			this.outEdges.put(copyOutEdge.to(), copyOutEdge);
 		}
 	}
 	
 	public void addInEdge(FlowEdge inEdge) {
-		this.inEdges.add(inEdge);
+		this.inEdges.put(inEdge.from(), inEdge);
 	}
 	
 	public void addOutEdge(FlowEdge outEdge) {
-		this.outEdges.add(outEdge);
+		this.outEdges.put(outEdge.to(), outEdge);
 	}
 	
 	public int id() {
