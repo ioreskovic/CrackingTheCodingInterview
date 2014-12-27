@@ -155,13 +155,16 @@ public class BitUtils {
 		StringBuilder sb = new StringBuilder();
 		
 		while (num > 0) {
+			System.out.println("num = " + num);
 			if (sb.length() >= MAX_LENGTH) {
+				System.out.println();
 				return "ERROR";
 			}
 			
 			double r = num * 2.0;
+			System.out.println("r = " + r);
 			
-			if (r > 1.0) {
+			if (r >= 1.0) {
 				sb.append(1);
 				num = r - 1.0;
 			} else {
@@ -170,12 +173,15 @@ public class BitUtils {
 			}
 			
 		}
+		System.out.println();
 		
 		return sb.toString();
 	}
 	
-	public static int nextSmallestIntWithSameNumberOfOnes(int num) {
+	public static int nextSmallestIntWithSameNumberOfOnes(int n) {
 		int runningMask = ~(~0 << 2);
+		
+		int num = n;
 		
 		int maskedNum = num & runningMask;
 		
@@ -196,21 +202,23 @@ public class BitUtils {
 			num >>= 1;
 			maskedNum = num & runningMask;
 		}
+		lastNonTrailingZeroIndex++;
 		
-		num = setBitFromEnd(num, lastNonTrailingZeroIndex);
-		int x = (1 << (numberOfOnes + 1)) - 1;
-		num = updateBitsFromLeastSignificant(num, x, 0, numberOfOnes);
+		num = setBitFromEnd(n, lastNonTrailingZeroIndex);
+		int x = (1 << (numberOfOnes - 1)) - 1;
+		num = updateBitsFromLeastSignificant(num, x, 0, lastNonTrailingZeroIndex - 1);
 		
 		return num;
 	}
 	
-	public static int previousBiggestIntWithSameNumberOfOnes(int num) {
+	public static int previousBiggestIntWithSameNumberOfOnes(int n) {
 		int runningMask = ~(~0 << 2);
+		
+		int num = n;
 		
 		int maskedNum = num & runningMask;
 		
 		int firstTrailingZeroIndex = 0;
-		int numberOfOnes = 0;
 		
 		while (maskedNum != 2) {
 			firstTrailingZeroIndex ++;
@@ -223,7 +231,7 @@ public class BitUtils {
 			maskedNum = num & runningMask;
 		}
 		
-		num = setBitFromEnd(num, firstTrailingZeroIndex);
+		num = setBitFromEnd(n, firstTrailingZeroIndex);
 		num = clearBitFromEnd(num, firstTrailingZeroIndex + 1);
 		
 		return num;
