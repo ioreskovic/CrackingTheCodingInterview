@@ -248,6 +248,13 @@ public class BitUtils {
 		return distance;
 	}
 	
+	public static int swapOddEvenBits(int n) {
+		int oddBitsShiftedRight = (n & 0xAAAAAAAA) >> 1;
+		int evenBitsShiftedLeft = (n & 0x55555555) << 1;
+		
+		return oddBitsShiftedRight | evenBitsShiftedLeft;
+	}
+	
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
 			throw new IllegalArgumentException("Bit value should be from set {0, 1}");
