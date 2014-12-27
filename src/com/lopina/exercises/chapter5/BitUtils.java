@@ -100,6 +100,51 @@ public class BitUtils {
 		return updateBitFromEnd(num, 31 - i, b);
 	}
 	
+	public static int updateBitsFromLeastSignificant(int n, int m, int i, int j) {
+		assert(i < j);
+		assertBitPositionInInt(i);
+		assertBitPositionInInt(j);
+		
+		/*
+		 * Step 1: Clear bits [i-j] in n
+		 *     clear bits [2-5]:
+		 *     
+		 *     abcdefgh &
+		 *     11000011
+		 *     
+		 *     11000011:
+		 *     11000000 |
+		 *     00000011
+		 *     
+		 *     11000000:
+		 *     11111111 << (j + 1)
+		 *     
+		 *     00000011:
+		 *     00000100 -
+		 *     00000001
+		 *     
+		 *     00000100:
+		 *     00000001 << (i + 1)
+		 *     
+		 *     mask:
+		 *     (~0 << (j + 1)) |
+		 *      ((1 << i) - 1)
+		 */
+		int clearRangeMask = (~0 << (j + 1)) | ((1 << i) - 1);
+		
+		int nCleared = n & clearRangeMask;
+		
+		/*
+		 * Step 2: Shift m into correct position
+		 */
+		int mShifted = m << i;
+		
+		/**
+		 * Step 3: Merge with OR
+		 */
+		return nCleared | mShifted;
+	}
+	
 	
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
