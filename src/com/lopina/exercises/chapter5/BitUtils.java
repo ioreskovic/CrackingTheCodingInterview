@@ -174,6 +174,61 @@ public class BitUtils {
 		return sb.toString();
 	}
 	
+	public static int nextSmallestIntWithSameNumberOfOnes(int num) {
+		int runningMask = ~(~0 << 2);
+		
+		int maskedNum = num & runningMask;
+		
+		int lastNonTrailingZeroIndex = 0;
+		int numberOfOnes = 0;
+		
+		while (maskedNum != 1) {
+			lastNonTrailingZeroIndex ++;
+			
+			if (lastNonTrailingZeroIndex > 31) {
+				return -1;
+			}
+			
+			if (maskedNum > 1) {
+				numberOfOnes ++;
+			}
+			
+			num >>= 1;
+			maskedNum = num & runningMask;
+		}
+		
+		num = setBitFromEnd(num, lastNonTrailingZeroIndex);
+		int x = (1 << (numberOfOnes + 1)) - 1;
+		num = updateBitsFromLeastSignificant(num, x, 0, numberOfOnes);
+		
+		return num;
+	}
+	
+	public static int previousBiggestIntWithSameNumberOfOnes(int num) {
+		int runningMask = ~(~0 << 2);
+		
+		int maskedNum = num & runningMask;
+		
+		int firstTrailingZeroIndex = 0;
+		int numberOfOnes = 0;
+		
+		while (maskedNum != 2) {
+			firstTrailingZeroIndex ++;
+			
+			if (firstTrailingZeroIndex > 31) {
+				return -1;
+			}
+			
+			num >>= 1;
+			maskedNum = num & runningMask;
+		}
+		
+		num = setBitFromEnd(num, firstTrailingZeroIndex);
+		num = clearBitFromEnd(num, firstTrailingZeroIndex + 1);
+		
+		return num;
+	}
+	
 	
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
