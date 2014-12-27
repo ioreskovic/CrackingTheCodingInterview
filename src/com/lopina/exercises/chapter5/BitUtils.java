@@ -237,6 +237,16 @@ public class BitUtils {
 		return num;
 	}
 	
+	public static int distance(int n, int m) {
+		int xor = n ^ m;
+		int distance = 0;
+		
+		for (int x = xor; x > 0; x >>= 1) {
+			distance += (x & 1);
+		}
+		
+		return distance;
+	}
 	
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
