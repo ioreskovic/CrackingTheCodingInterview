@@ -47,6 +47,10 @@ public class FlowNetwork {
 		return this.nodes.size();
 	}
 	
+	public FlowNode node(int flowNodeId) {
+		return this.nodes.get(flowNodeId);
+	}
+	
 	public void addFlowEdge(FlowEdge edge) {
 		FlowNode from = edge.from();
 		FlowNode to = edge.to();
@@ -77,7 +81,7 @@ public class FlowNetwork {
 		adj.put(node, edgeList);
 	}
 	
-	private Iterable<FlowEdge> adj(FlowNode node) {
+	public Iterable<FlowEdge> adjForwardEdges(FlowNode node) {
 		List<FlowEdge> allAdjEdges = this.adj.getOrDefault(node, new ArrayList<FlowEdge>());
 		
 		List<FlowEdge> forwardAdjEdges = new ArrayList<FlowEdge>();
@@ -91,6 +95,10 @@ public class FlowNetwork {
 		return forwardAdjEdges;
 	}
 	
+	public Iterable<FlowEdge> adjAll(FlowNode node) {
+		return this.adj.getOrDefault(node, new ArrayList<FlowEdge>());
+	}
+	
 	@Override
 	public String toString() {
 		String NEWLINE = System.getProperty("line.separator");
@@ -98,7 +106,7 @@ public class FlowNetwork {
 		
 		sb.append("Flow Network - ").append(edges()).append(" edges, ").append(nodes()).append(" nodes").append(NEWLINE);
 		for (FlowNode node : this.nodes.values()) {
-			for (FlowEdge edge : adj(node)) {
+			for (FlowEdge edge : adjForwardEdges(node)) {
 				sb.append("\t").append(edge).append(NEWLINE);
 			}
 		}

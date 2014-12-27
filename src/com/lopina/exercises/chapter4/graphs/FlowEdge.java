@@ -48,6 +48,16 @@ public class FlowEdge {
 		}
 	}
 	
+	public int other(int v) {
+		if (v == this.from.id()) {
+			return this.to.id();
+		} else if (v == this.to.id()) {
+			return this.from.id();
+		} else {
+			throw new IllegalArgumentException("Node " + v + " is not a node of this edge + " + this.toString());
+		}
+	}
+	
 	public double residualCapacity(FlowNode node) {
 		if (node == this.to) {
 			return this.capacity - this.flow;
@@ -81,5 +91,5 @@ public class FlowEdge {
 		
 		System.out.println(edge.toString());
 	}
-	
+
 }
