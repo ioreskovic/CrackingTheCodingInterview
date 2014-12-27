@@ -145,6 +145,35 @@ public class BitUtils {
 		return nCleared | mShifted;
 	}
 	
+	public static String smallDoubleToBinary(double num) {
+		if (num < 0 || num > 1) {
+			throw new IllegalArgumentException("The number should be from interval [0, 1]");
+		}
+		
+		int MAX_LENGTH = 32;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		while (num > 0) {
+			if (sb.length() >= MAX_LENGTH) {
+				return "ERROR";
+			}
+			
+			double r = num * 2.0;
+			
+			if (r > 1.0) {
+				sb.append(1);
+				num = r - 1.0;
+			} else {
+				sb.append(0);
+				num = r;
+			}
+			
+		}
+		
+		return sb.toString();
+	}
+	
 	
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
@@ -157,4 +186,6 @@ public class BitUtils {
 			throw new IllegalArgumentException("Bit position should be in range [0-31]");
 		}
 	}
+	
+	
 }
