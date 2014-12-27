@@ -1,5 +1,8 @@
 package com.lopina.exercises.chapter5;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BitUtils {
 	public static boolean getBitFromEnd(int num, int i) {
 		assertBitPositionInInt(i);
@@ -255,6 +258,36 @@ public class BitUtils {
 		return oddBitsShiftedRight | evenBitsShiftedLeft;
 	}
 	
+	public static int findMissingNumber(List<Integer> numbers) {
+		return findMissingNumber(numbers, 0);
+	}
+	
+	private static int findMissingNumber(List<Integer> numbers, int bitPosition) {
+		if (bitPosition > 31) {
+			return 0;
+		}
+		
+		List<Integer> zeros = new ArrayList<Integer>();
+		List<Integer> ones = new ArrayList<Integer>();
+		
+		for (int i : numbers) {
+			if (BitUtils.getBitFromEnd(i, bitPosition) == false) {
+				zeros.add(i);
+			} else {
+				ones.add(i);
+			}
+		}
+		
+		if (zeros.size() <= ones.size()) {
+			int missingNumberBit = findMissingNumber(zeros, bitPosition + 1);
+			return (missingNumberBit << 1) | 0;
+			
+		} else {
+			int missingNumberBit = findMissingNumber(ones, bitPosition + 1);
+			return (missingNumberBit << 1) | 1;
+		}
+	}
+
 	private static void assertIntIsBitValue(int b) {
 		if (b != 0 && b != 1) {
 			throw new IllegalArgumentException("Bit value should be from set {0, 1}");
@@ -265,6 +298,22 @@ public class BitUtils {
 		if (i < 0 || i > 31) {
 			throw new IllegalArgumentException("Bit position should be in range [0-31]");
 		}
+	}
+
+	public static String byteToString(byte b) {
+		int x = b;
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 7; i >= 0; i--) {
+			
+			if (getBitFromEnd(x, i)) {
+				sb.append(1);
+			} else {
+				sb.append(0);
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	
