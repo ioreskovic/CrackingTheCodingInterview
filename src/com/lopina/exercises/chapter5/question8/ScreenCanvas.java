@@ -20,44 +20,23 @@ public class ScreenCanvas {
 	
 	public void drawLine(int x1, int x2, int y) {
 		int bytesPerRow = width / 8;
-		int height = canvas.length / bytesPerRow;
 		
 		int startByteIndex = y * bytesPerRow + (x1 / 8);
 		int endByteIndex = y * bytesPerRow + (x2 / 8);
 		
-		System.out.println("sbi = " + startByteIndex);
-		System.out.println("ebi = " + endByteIndex);
-		
-		int bytesToFill = x2 - x1 + 1;
-		
 		for (int byteIndex = startByteIndex; byteIndex <= endByteIndex; byteIndex++) {
-			if (bytesToFill <= 0) {
-				return;
-			}
-			
-			
+			byte mask = (byte) 0xFF;
 			if (byteIndex == startByteIndex) {
-				int bitSetIndexEnd = 8 - (x1 % 8) - 1;
-				int bitSetIndexStart = Math.max(bitSetIndexEnd - bytesToFill + 1, 0);
-				int currentBytesToFill = bitSetIndexEnd - bitSetIndexStart + 1;
-				
-				byte mask = (byte) ((((1 << currentBytesToFill) - 1) << bitSetIndexStart) & 0xFF);
-				canvas[byteIndex] |= mask;
-				
-				bytesToFill -= currentBytesToFill;
-			}
-			
-			if (byteIndex > startByteIndex && byteIndex < endByteIndex) {
-				canvas[byteIndex] = (byte) 0xFF;
-				
-				bytesToFill -= 8;
+				int edgeIndex = 7 - (x1 % 8);
+				mask &= (((1 << (edgeIndex + 1)) - 1) & 0xFF);
 			}
 			
 			if (byteIndex == endByteIndex) {
-				int bitClearIndex = 8 - (bytesToFill);
-				byte mask = (byte) ((~((1 << (bitClearIndex)) - 1)) & 0xFF);
-				canvas[byteIndex] |= mask;
+				int edgeIndex = 7 - (x2 % 8);
+				mask &= ((~((1 << edgeIndex) - 1)) & 0xFF);
 			}
+			
+			canvas[byteIndex] |= mask;
 		}
 	}
 	
