@@ -69,7 +69,10 @@ public class MyLinkedList<T> implements Iterable<T> {
 				if (n.next.data.equals(data)) {
 					n.next = n.next.next;
 					
-					tail = n;
+					if (n.next == null) {
+						tail = n;
+					}
+					
 					return;
 				}
 				
