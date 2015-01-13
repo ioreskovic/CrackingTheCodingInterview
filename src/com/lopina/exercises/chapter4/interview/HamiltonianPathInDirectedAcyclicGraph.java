@@ -27,6 +27,8 @@ public class HamiltonianPathInDirectedAcyclicGraph {
 			w = it.next();
 			
 			hamiltonianPath &= hasPath(digraph, v, w);
+			
+			v = w;
 		}
 	}
 
