@@ -1,7 +1,5 @@
 package com.lopina.exercises.chapter7;
 
-import javafx.scene.shape.LineTo;
-
 public class MathUtils {	
 	public static boolean isPrime(int n) {
 		return SieveOfEratosthenes.isPrime(n);
