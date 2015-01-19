@@ -1,5 +1,9 @@
 package com.lopina.exercises.chapter1;
 
+import java.awt.Point;
+
+import com.lopina.exercises.chapter1.test.Coordinate;
+
 
 
 public class MatrixUtils {
@@ -264,4 +268,61 @@ public class MatrixUtils {
 			}
 		}
 	}
+	
+	public static <T extends Comparable<T>> Coordinate contains(T[][] matrix, T value) {
+		return binaryMatrixSearch(matrix, value, new Coordinate(0, 0), new Coordinate(matrix.length - 1, matrix[0].length - 1));
+	}
+	
+	public static <T extends Comparable<T>> Coordinate binaryMatrixSearch(T[][] matrix, T value, Coordinate upperLeft, Coordinate lowerRight) {
+		System.out.println("Checking rectangle: " + upperLeft.toString() + " \\ " + lowerRight.toString());
+		if (!upperLeft.inBounds(matrix) || !lowerRight.inBounds(matrix)) {
+			return null;
+		}
+		
+		if (value.equals(matrix[upperLeft.x][upperLeft.y])) {
+			return upperLeft;
+		} else if (!upperLeft.isBefore(lowerRight)) {
+			return null;
+		}
+		
+		
+		int diagonalDistance = Math.min(
+				lowerRight.x - upperLeft.x,
+				lowerRight.y - upperLeft.y
+		);
+		
+		Coordinate start = new Coordinate(upperLeft);
+		Coordinate end = new Coordinate(start.x + diagonalDistance, start.y + diagonalDistance);
+		Coordinate p = Coordinate.average(start, end);
+		
+		while (start.isBefore(end)) {
+			Coordinate avg = Coordinate.average(start, end);
+			p.x = avg.x;
+			p.y = avg.y;
+			if (value.compareTo(matrix[p.x][p.y]) == 0) {
+				return p;
+			} else if (value.compareTo(matrix[p.x][p.y]) > 0) {
+				start.x = p.x + 1;
+				start.y = p.y + 1;
+			} else if (value.compareTo(matrix[p.x][p.y]) < 0) {
+				end.x = p.x - 1;
+				end.y = p.y - 1;
+			}
+		}
+		
+		System.out.println("Diagonal pivot: " + start);
+		
+		Coordinate upperRightStart = new Coordinate(upperLeft.x, start.y);
+		Coordinate upperRightEnd = new Coordinate(start.x - 1, lowerRight.y);
+		Coordinate lowerLeftStart = new Coordinate(start.x, upperLeft.y);
+		Coordinate lowerLeftEnd = new Coordinate(lowerRight.x, start.y - 1);
+		
+		Coordinate result = binaryMatrixSearch(matrix, value, upperRightStart, upperRightEnd);
+		if (result == null) {
+			result = binaryMatrixSearch(matrix, value, lowerLeftStart, lowerLeftEnd);
+		}
+		
+		return result;
+	}
+	
 }
