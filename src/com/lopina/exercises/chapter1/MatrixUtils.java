@@ -180,4 +180,88 @@ public class MatrixUtils {
 			throw new IllegalArgumentException(message);
 		}
 	}
+	
+	public static <T> void traverseMatrixDiagonal1(T[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		
+		int maxIndexSum = m + n - 1;
+		
+		for (int indexSum = 0; indexSum < maxIndexSum; indexSum++) {
+			int topRightStartRow = indexSum < n ? 0 : indexSum - n + 1;
+			int bottomLeftEndColumn = indexSum < m ? 0 : indexSum - m + 1;
+			
+			System.out.print(String.format("%3d: ", indexSum));
+			for (int i = topRightStartRow; i <= (indexSum - bottomLeftEndColumn); i++) {
+				System.out.print(String.format("[%4d]", matrix[i][indexSum - i]));
+			}
+			System.out.println();
+		}
+	}
+	
+	public static <T> void traverseMatrixDiagonal2(T[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		
+		for (int slice = - (m - 1); slice <= (n - 1); slice++) {
+			System.out.print(String.format("%3d: ", slice));
+			
+			int topLeftStartRow = slice < 0 ? -slice : 0;
+			int topLeftStartColumn = slice < 0 ? 0 : slice;
+			int bottomRightEndColumn = slice >= (n - m) ? n - 1 : m + slice - 1;
+			
+			int sliceLength = bottomRightEndColumn - topLeftStartColumn + 1;
+			
+			for (int i = 0; i < sliceLength; i++) {
+				System.out.print(String.format("[%4d]", matrix[topLeftStartRow + i][topLeftStartColumn + i]));
+			}
+			System.out.println();
+		}
+	}
+	
+	public static <T> void traverseMatrixSpiral(T[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		
+		int sh = 0;
+		int sv = 0;
+		int eh = m - 1;
+		int ev = n - 1;
+		
+		while (sh < eh && sv < ev) {
+//			System.out.println("h-range = [" + sh + ", " + eh + "]");
+//			System.out.println("v-range = [" + sv + ", " + ev + "]");
+			for (int i = sv; i <= ev - 1; i++) {
+				System.out.print(String.format("%3s", matrix[sh][i]));
+			}
+			
+			for (int i = sh; i <= eh - 1; i++) {
+				System.out.print(String.format("%3s", matrix[i][ev]));
+			}
+			
+			for (int i = ev; i >= sv + 1; i--) {
+				System.out.print(String.format("%3s", matrix[eh][i]));
+			}
+			
+			for (int i = eh; i >= sh + 1; i--) {
+				System.out.print(String.format("%3s", matrix[i][sv]));
+			}
+			
+			sh++;
+			eh--;
+			
+			sv++;
+			ev--;
+		}
+		
+		if (sh == eh) {
+			for (int i = sv; i <= ev; i++) {
+				System.out.print(String.format("%3s", matrix[sh][i]));
+			}
+		} else if (sv == ev) {
+			for (int i = sh; i <= eh; i++) {
+				System.out.print(String.format("%3s", matrix[i][sv]));
+			}
+		}
+	}
 }
