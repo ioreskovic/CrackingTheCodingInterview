@@ -57,7 +57,6 @@ public class QuickSort {
 	
 	public static <T> int partition(T[] array, Comparator<T> comparator, int fromIndex, int toIndex) {
 		System.out.println("\t\tPartition[" + fromIndex + ", " + toIndex + "]");
-		int k = (toIndex - fromIndex + 1) / 2;
 		int medianIndex = randomIndex(fromIndex, toIndex);
 		
 		medianIndex = partitionAround(array, comparator, fromIndex, toIndex, medianIndex);
