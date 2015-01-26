@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.lopina.exercises.chapter1.MatrixUtils;
-
 public class Shuffle {
 	public static <T> void knuthShuffle(T[] array) {
 		Random random = new Random(System.currentTimeMillis());
@@ -25,7 +23,6 @@ public class Shuffle {
 	
 	public static void main(String[] args) {
 		Integer[] array = new Integer[] { 0, 1, 2, 3, 4 };
-		Integer[][] counter = new Integer[array.length][array.length];
 		
 		Map<String, Integer> counts = new HashMap<String, Integer>();
 		
