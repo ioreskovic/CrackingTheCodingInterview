@@ -30,7 +30,7 @@ public class RotatedBinarySearch {
 				return find(array, mid + 1, to, x);
 			}
 		} else if (prev > curr) {
-			if (prev <= x && x <= next) {
+			if (curr <= x && x <= next) {
 				return find(array, mid + 1, to, x);
 			} else {
 				return find(array, from, mid - 1, x);
