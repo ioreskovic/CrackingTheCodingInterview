@@ -19,9 +19,9 @@ public class MergeSort {
 		}
 		
 		int breakingPoint = (fromIndex + toIndex) / 2;
-		mergeSort(array, comparator, 0, breakingPoint);
+		mergeSort(array, comparator, fromIndex, breakingPoint);
 		mergeSort(array, comparator, breakingPoint + 1, toIndex);
-		merge(array, comparator, 0, breakingPoint, breakingPoint + 1, toIndex);
+		merge(array, comparator, fromIndex, breakingPoint, breakingPoint + 1, toIndex);
 	}
 	
 	@SuppressWarnings("unchecked")
