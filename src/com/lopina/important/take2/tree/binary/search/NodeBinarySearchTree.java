@@ -1,6 +1,10 @@
 
 package com.lopina.important.take2.tree.binary.search;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Iterator;
+
 public class NodeBinarySearchTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
 	private class Node {
@@ -269,6 +273,53 @@ public class NodeBinarySearchTree<T extends Comparable<T>> extends BinarySearchT
 		System.out.println(tree.get(9));
 		
 		tree.remove(6);
+	}
+
+	@Override
+	public Iterable<T> diameter() {
+		if (this.root == null) {
+			return null;
+		}
+		
+		Deque<T> diameterLeftPart = new ArrayDeque<T>();
+		Deque<T> diameterRightPart = new ArrayDeque<T>();
+		
+		diameter(this.root.left, diameterLeftPart);
+		diameter(this.root.right, diameterRightPart);
+		
+		Deque<T> diameter = new ArrayDeque<T>();
+		
+		for (Iterator<T> it = diameterLeftPart.iterator(); it.hasNext();) {
+			diameter.offerLast(it.next());
+		}
+		
+		diameter.offerLast(this.root.item);
+		
+		for (Iterator<T> it = diameterRightPart.descendingIterator(); it.hasNext();) {
+			diameter.offerLast(it.next());
+		}
+		
+		return diameter;
+	}
+
+	private void diameter(Node node, Deque<T> diameter) {
+		if (node == null)  {
+			return;
+		}
+		
+		Deque<T> leftPart = new ArrayDeque<T>();
+		Deque<T> rightPart = new ArrayDeque<T>();
+		
+		diameter(node.left, leftPart);
+		diameter(node.right, rightPart);
+		
+		if (leftPart.size() > rightPart.size()) {
+			diameter.addAll(leftPart);
+		} else {
+			diameter.addAll(rightPart);
+		}
+		
+		diameter.offerLast(node.item);
 	}
 
 }

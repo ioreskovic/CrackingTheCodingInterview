@@ -243,4 +243,10 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> extends BinarySearch
 		System.out.println(testTree);
 	}
 
+	@Override
+	public Iterable<T> diameter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

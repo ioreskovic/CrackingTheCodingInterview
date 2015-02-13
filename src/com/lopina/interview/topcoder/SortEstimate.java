@@ -2,7 +2,7 @@ package com.lopina.interview.topcoder;
 
 public class SortEstimate {
 	public static double howMany(int c, int time) {
-		double e = 1E-9;
+		double e = 1E-12;
 		double threshhold = time / c;
 		
 		double low = 0;

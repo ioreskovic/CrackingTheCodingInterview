@@ -5,4 +5,5 @@ public interface Tree<T> {
 	void remove(T item);
 	T get(T item);
 	boolean contains(T item);
+	Iterable<T> diameter();
 }
